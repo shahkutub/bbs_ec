@@ -1,19 +1,22 @@
-class StoreLocalData {
-  List<StoreRequestDataModel>? data;
+class StoreDataModel {
+  bool? status;
+  List<Data>? data;
 
-  StoreLocalData({this.data});
+  StoreDataModel({this.status, this.data});
 
-  StoreLocalData.fromJson(Map<String, dynamic> json) {
+  StoreDataModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
     if (json['data'] != null) {
-      data = <StoreRequestDataModel>[];
+      data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(StoreRequestDataModel.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -21,7 +24,8 @@ class StoreLocalData {
   }
 }
 
-class StoreRequestDataModel {
+class Data {
+  int? id;
   String? institutionName;
   String? mobile;
   String? phone;
@@ -33,11 +37,13 @@ class StoreRequestDataModel {
   int? maleWorkerCount;
   int? femaleWorkerCount;
   int? status;
-  bool? server;
-  String? dateTime;
+  String? createdAt;
+  String? updatedAt;
+  String? deletedAt;
 
-  StoreRequestDataModel(
-      {this.institutionName,
+  Data(
+      {this.id,
+      this.institutionName,
       this.mobile,
       this.phone,
       this.email,
@@ -48,10 +54,12 @@ class StoreRequestDataModel {
       this.maleWorkerCount,
       this.femaleWorkerCount,
       this.status,
-      this.server,
-      this.dateTime});
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
 
-  StoreRequestDataModel.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     institutionName = json['institution_name'];
     mobile = json['mobile'];
     phone = json['phone'];
@@ -63,12 +71,14 @@ class StoreRequestDataModel {
     maleWorkerCount = json['male_worker_count'];
     femaleWorkerCount = json['female_worker_count'];
     status = json['status'];
-    server = json['server'];
-    dateTime = json['date_time'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['institution_name'] = this.institutionName;
     data['mobile'] = this.mobile;
     data['phone'] = this.phone;
@@ -80,8 +90,9 @@ class StoreRequestDataModel {
     data['male_worker_count'] = this.maleWorkerCount;
     data['female_worker_count'] = this.femaleWorkerCount;
     data['status'] = this.status;
-    data['server'] = this.server;
-    data['date_time'] = this.dateTime;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
     return data;
   }
 }

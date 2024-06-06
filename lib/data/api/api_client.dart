@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/app_constants.dart';
-import '../response/error_response.dart';
+import '../model/response/error_response.dart';
 
 class ApiClient extends GetxService {
   final String appBaseUrl;
@@ -48,7 +48,6 @@ class ApiClient extends GetxService {
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
-
 
   Future<Response> getDummyData(
     String uri,
@@ -178,6 +177,4 @@ class ApiClient extends GetxService {
         '====> API Response: [${response0.statusCode}] $uri\n${response0.body}');
     return response0;
   }
-
 }
-
