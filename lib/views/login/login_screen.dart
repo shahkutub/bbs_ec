@@ -50,22 +50,22 @@ class _SignInState extends State<SignInScreen> {
               ),
               Image.asset(
                 'assets/bdseal.png',
-                height: 100,
-                width: 100,
+                height: 150,
+                width: 150,
               ),
               const SizedBox(
                 height: 20,
               ),
               const Text(
                 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 5,
               ),
               const Text(
                 'বাংলাদেশ পরিসংখ্যান ব্যুরো',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 6,
