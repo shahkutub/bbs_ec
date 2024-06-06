@@ -1,25 +1,22 @@
 // ignore_for_file: constant_identifier_names
 
-/* created by - Aqib
-created at -26/09/23
-
-This file has been created to manage all the constant variables of the application. 
-Constants can be used to maintain consistent values across the application, such as error messages, API endpoints, or URLs.
-This consistency ensures that the application behaves predictably and adheres to design guidelines
- */
-
 class AppConstants {
   AppConstants._();
 
   // urls
   // test server
-  static const String BASE_URL = 'https://api.project-ca.com';
-  static const String BASE_URL_POST = 'https://master.project-ca.com';
+  static const String BASE_URL = 'https://bbs-ec.nanoit.biz/api';
+
+  static const String LOGIN_URI = '/auth/login';
   // training server
 
   // Shared Key
-  static const String TOKEN = 'amar_school_token';
-  static const String REFRESH_TOKEN = 'refresh_token';
+  static const String THEME = 'theme';
+  static const String TOKEN = 'bbs_ec_token';
+  static const String USER = 'bbs_ec_user';
+  static const String REMEMBER_ME = 'remember_me';
+  static const String USER_PASSWORD = 'user_password';
+  static const String USER_ID = 'user_id';
 
   //text
   static const String NO_DATA = 'তথ্য পাওয়া যায়নি';

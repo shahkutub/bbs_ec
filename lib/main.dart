@@ -1,10 +1,15 @@
-import 'package:bbs_ec/views/home/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+import 'package:bbs_ec/views/splash/splash_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'helper/get_di.dart' as di;
 import 'theme/light.dart';
 
-void main() {
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -19,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'EC',
       theme: light,
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

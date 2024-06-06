@@ -20,7 +20,6 @@ class ApiClient extends GetxService {
 
   ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
     token = sharedPreferences.getString(AppConstants.TOKEN);
-    refresh_token = sharedPreferences.getString(AppConstants.REFRESH_TOKEN);
     debugPrint('Token: $token');
     updateHeader(token);
   }
@@ -50,21 +49,6 @@ class ApiClient extends GetxService {
     }
   }
 
-  Future<Response> getDataCustomT(String uri,
-      {Map<String, dynamic>? query, Map<String, String>? headers}) async {
-    try {
-      debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      http.Response response = await http
-          .get(
-            Uri.parse(AppConstants.BASE_URL_POST + uri),
-            headers: headers ?? _mainHeaders,
-          )
-          .timeout(Duration(seconds: timeoutInSeconds));
-      return handleResponse(response, uri);
-    } catch (e) {
-      return const Response(statusCode: 1, statusText: noInternetMessage);
-    }
-  }
 
   Future<Response> getDummyData(
     String uri,
@@ -118,45 +102,27 @@ class ApiClient extends GetxService {
     }
   }
 
-  Future<Response> postDataCustomT(String uri, dynamic body,
-      {Map<String, String>? headers}) async {
-    try {
-      debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      debugPrint('====> API Body: $body');
-      http.Response response = await http
-          .post(
-            Uri.parse(AppConstants.BASE_URL_POST + uri),
-            body: jsonEncode(body),
-            headers: headers ?? _mainHeaders,
-          )
-          .timeout(Duration(seconds: timeoutInSeconds));
-      return handleResponse(response, uri);
-    } catch (e) {
-      return const Response(statusCode: 1, statusText: noInternetMessage);
-    }
-  }
-
-  Future<Response> putData(String uri, dynamic body,
-      {Map<String, String>? headers}) async {
-    try {
-      debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
-      debugPrint('====> API Body: $body');
-      debugPrint('====> fullurl: ${appBaseUrl + uri}');
-      http.Response response = await http.put(
-        // Uri.parse('${appBaseUrl + uri}'),
-        Uri.parse(AppConstants.BASE_URL_POST + uri),
-        //Uri.parse('https://api-gateway.project-ca.com/api/v1/account-update/110324520230001?phone_no=01716787827&email=mofiz009@gmail.com'),
-        // body: jsonEncode(body),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token'
-        },
-      ).timeout(Duration(seconds: timeoutInSeconds));
-      return handleResponse(response, uri);
-    } catch (e) {
-      return const Response(statusCode: 1, statusText: noInternetMessage);
-    }
-  }
+  // Future<Response> putData(String uri, dynamic body,
+  //     {Map<String, String>? headers}) async {
+  //   try {
+  //     debugPrint('====> API Call: $uri\nHeader: $_mainHeaders');
+  //     debugPrint('====> API Body: $body');
+  //     debugPrint('====> fullurl: ${appBaseUrl + uri}');
+  //     http.Response response = await http.put(
+  //       // Uri.parse('${appBaseUrl + uri}'),
+  //       Uri.parse(AppConstants.BASE_URL_POST + uri),
+  //       //Uri.parse('https://api-gateway.project-ca.com/api/v1/account-update/110324520230001?phone_no=01716787827&email=mofiz009@gmail.com'),
+  //       // body: jsonEncode(body),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $token'
+  //       },
+  //     ).timeout(Duration(seconds: timeoutInSeconds));
+  //     return handleResponse(response, uri);
+  //   } catch (e) {
+  //     return const Response(statusCode: 1, statusText: noInternetMessage);
+  //   }
+  // }
 
   Future<Response> deleteData(String uri,
       {Map<String, String>? headers}) async {
