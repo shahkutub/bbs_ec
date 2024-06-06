@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:bbs_ec/data/response/model/login_model.dart';
+import 'package:bbs_ec/data/model/response/model/login_model.dart';
 import 'package:get/get.dart';
 import '../data/repo/auth_repo.dart';
-import '../data/response/model/response_model.dart';
+import '../data/model/response/model/response_model.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepo authRepo;
@@ -163,7 +163,8 @@ class AuthController extends GetxController implements GetxService {
         responseModel =
             ResponseModel(true, '${response.body['data']['token']}');
       } else {
-        responseModel = ResponseModel(false, 'আপনার ইউজার আইডি বা পাসওয়ার্ড ভুল।');
+        responseModel =
+            ResponseModel(false, 'আপনার ইউজার আইডি বা পাসওয়ার্ড ভুল।');
       }
     } else if (response.statusCode == 404) {
       responseModel =

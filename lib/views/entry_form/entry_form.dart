@@ -1,6 +1,9 @@
+import 'package:bbs_ec/controllers/data_controller.dart';
+import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class EntryForm extends StatefulWidget {
   const EntryForm({super.key});
@@ -16,6 +19,10 @@ class _EntryFormState extends State<EntryForm> {
   String dropdownValueWonerType = '';
   String dropdownValueEconomicType = '';
 
+  int officeType = 1;
+  int ownerType = 1;
+  int economicType = 1;
+
   var nameEditController = TextEditingController();
   var phoneEditController = TextEditingController();
   var alterPhoneEditController = TextEditingController();
@@ -28,6 +35,7 @@ class _EntryFormState extends State<EntryForm> {
   List<ItemData> officeTypeList = [];
   List<ItemData> wonerTypeList = [];
   List<ItemData> economicTypeList = [];
+  final f = DateFormat('dd-MM-yyyy');
 
   int male = 0;
   int female = 0;
@@ -71,7 +79,7 @@ class _EntryFormState extends State<EntryForm> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text('লিস্টিং ফরম'),
@@ -290,13 +298,12 @@ class _EntryFormState extends State<EntryForm> {
                                       onChanged: (String? newValue) {
                                         setState(() {
                                           dropdownValueOfficeType = newValue!;
-                                          // yearList.forEach((element){
-                                          //   if(newValue != 'Select division' && newValue == element.name){
-                                          //     //divisionId = element.id.toString();
-                                          //     countryName = element.name.toString();
-                                          //    // getDistrict();
-                                          //   }
-                                          // });
+                                          officeType = officeTypeList
+                                                  .where((element) =>
+                                                      element.name == newValue)
+                                                  .first
+                                                  .id ??
+                                              1;
                                         });
                                       },
                                       items: officeTypeList.map((country) {
@@ -351,13 +358,12 @@ class _EntryFormState extends State<EntryForm> {
                                       onChanged: (String? newValue) {
                                         setState(() {
                                           dropdownValueWonerType = newValue!;
-                                          // yearList.forEach((element){
-                                          //   if(newValue != 'Select division' && newValue == element.name){
-                                          //     //divisionId = element.id.toString();
-                                          //     countryName = element.name.toString();
-                                          //    // getDistrict();
-                                          //   }
-                                          // });
+                                          ownerType = wonerTypeList
+                                                  .where((element) =>
+                                                      element.name == newValue)
+                                                  .first
+                                                  .id ??
+                                              1;
                                         });
                                       },
                                       items: wonerTypeList.map((country) {
@@ -369,7 +375,8 @@ class _EntryFormState extends State<EntryForm> {
                                               child: Text(
                                                 country.name!,
                                                 style: TextStyle(
-                                                    color: Colors.black),
+                                                    color: Colors.black,
+                                                    fontSize: 17),
                                               )),
                                           value: country.name,
                                         );
@@ -411,13 +418,12 @@ class _EntryFormState extends State<EntryForm> {
                                       onChanged: (String? newValue) {
                                         setState(() {
                                           dropdownValueEconomicType = newValue!;
-                                          // yearList.forEach((element){
-                                          //   if(newValue != 'Select division' && newValue == element.name){
-                                          //     //divisionId = element.id.toString();
-                                          //     countryName = element.name.toString();
-                                          //    // getDistrict();
-                                          //   }
-                                          // });
+                                          economicType = economicTypeList
+                                                  .where((element) =>
+                                                      element.name == newValue)
+                                                  .first
+                                                  .id ??
+                                              1;
                                         });
                                       },
                                       items: economicTypeList.map((country) {
@@ -524,6 +530,7 @@ class _EntryFormState extends State<EntryForm> {
                                   ),
                                   Flexible(
                                     child: TextFormField(
+                                      readOnly: true,
                                       controller: totalEditController,
                                       validator: (value) {
                                         if (value!.isEmpty) {
@@ -569,7 +576,7 @@ class _EntryFormState extends State<EntryForm> {
                                   color: Colors.green,
                                   border: Border.all(color: Colors.green),
                                   borderRadius: BorderRadius.circular(5)),
-                              child: Text(
+                              child: const Text(
                                 'জমা দিন',
                                 style: TextStyle(
                                     color: Colors.white,
@@ -578,55 +585,75 @@ class _EntryFormState extends State<EntryForm> {
                               ),
                             ),
                             onTap: () async {
-                              if (_formKey.currentState!.validate()) {
-                                try {} catch (error) {}
-                              } else {
-                                //final bool isValidEmail = false;
-                                final bool isValidEmail =
-                                    EmailValidator.validate(
-                                        emailEditController.text.toString());
+                              final bool isValidEmail = EmailValidator.validate(
+                                  emailEditController.text.toString());
 
-                                if (nameEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                                } else if (phoneEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
-                                } else if (emailEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
-                                } else if (!isValidEmail) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
-                                } else if (dropdownValueYear.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
-                                } else if (dropdownValueOfficeType.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
-                                } else if (dropdownValueWonerType.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'মালিকানার ধরণ নির্বাচন করুন'));
-                                } else if (dropdownValueEconomicType.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
-                                } else if (maleEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'কর্মরত জনবল পুরুষ সংখ্যা দিন'));
-                                } else if (femaleEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg(
-                                          'কর্মরত জনবল মহিলা সংখ্যা দিন'));
-                                } else if (totalEditController.text.isEmpty) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
-                                }
+                              if (nameEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                                return;
+                              } else if (phoneEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg(
+                                        'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
+                                return;
+                              } else if (emailEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
+                                return;
+                              } else if (!isValidEmail) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
+                                return;
+                              } else if (dropdownValueYear.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg(
+                                        'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
+                                return;
+                              } else if (dropdownValueOfficeType.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
+                                return;
+                              } else if (dropdownValueWonerType.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
+                                return;
+                              } else if (dropdownValueEconomicType.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg(
+                                        'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
+                                return;
+                              } else if (maleEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
+                                return;
+                              } else if (femaleEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
+                                return;
+                              } else if (totalEditController.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
+                                return;
                               }
+
+                              StoreRequestDataModel srdModel =
+                                  StoreRequestDataModel(
+                                institutionName: nameEditController.text,
+                                mobile: phoneEditController.text,
+                                phone: alterPhoneEditController.text,
+                                email: emailEditController.text,
+                                establishYear: dropdownValueYear,
+                                officeType: officeType,
+                                ownershipType: ownerType,
+                                economicActivityType: economicType,
+                                maleWorkerCount: male,
+                                femaleWorkerCount: female,
+                                status: 1,
+                                dateTime: f.format(DateTime.now()),
+                                server: false,
+                              );
+                              Get.find<DataController>().storeData(srdModel);
                             },
                             // onTap: (){
                             //   final bool isValidEmail = false;
@@ -679,25 +706,23 @@ class _EntryFormState extends State<EntryForm> {
     for (int k = 1999; k < 2024; k++) {
       int val = k + 1;
       print('year' + yearList.length.toString());
-      yearList.add(ItemData(name: val.toString(), id: '0'));
+      yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
-    officeTypeList.add(ItemData(name: 'ক. প্রধান অফিস'.toString(), id: '0'));
-    officeTypeList.add(ItemData(name: 'খ. শাখা অফিস'.toString(), id: '0'));
-    officeTypeList.add(ItemData(name: 'গ. একক ইউনিট'.toString(), id: '0'));
+    officeTypeList.add(ItemData(name: 'ক. প্রধান অফিস'.toString(), id: 1));
+    officeTypeList.add(ItemData(name: 'খ. শাখা অফিস'.toString(), id: 2));
+    officeTypeList.add(ItemData(name: 'গ. একক ইউনিট'.toString(), id: 3));
 
-    wonerTypeList.add(ItemData(name: 'ক. একক'.toString(), id: '0'));
+    wonerTypeList.add(ItemData(name: 'ক. একক'.toString(), id: 1));
     wonerTypeList
-        .add(ItemData(name: 'খ. যৌথ বা অংশীদারিত্ব'.toString(), id: '0'));
+        .add(ItemData(name: 'খ. যৌথ বা অংশীদারিত্ব'.toString(), id: 2));
 
     economicTypeList
-        .add(ItemData(name: 'ক. কৃষি (খামার) সম্পর্কিত'.toString(), id: '0'));
+        .add(ItemData(name: 'ক. কৃষি (খামার) সম্পর্কিত'.toString(), id: 1));
     economicTypeList
-        .add(ItemData(name: 'খ. শিল্প সম্পর্কিত'.toString(), id: '0'));
-    economicTypeList
-        .add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(), id: '0'));
+        .add(ItemData(name: 'খ. শিল্প সম্পর্কিত'.toString(), id: 2));
+    economicTypeList.add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(), id: 3));
 
-    //print('year'+yearList.length.toString());
     setState(() {});
   }
 
@@ -718,6 +743,6 @@ class _EntryFormState extends State<EntryForm> {
 
 class ItemData {
   String? name;
-  String? id;
+  int? id;
   ItemData({this.name, this.id});
 }

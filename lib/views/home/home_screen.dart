@@ -1,4 +1,6 @@
+import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/global.dart';
+import 'package:bbs_ec/helper/common_method.dart';
 import 'package:bbs_ec/views/custom/scroll_behavior.dart';
 import 'package:bbs_ec/views/entry_form/entry_form.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
@@ -15,13 +17,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isIPad = true;
-
   @override
   void initState() {
     super.initState();
-    isIPad = Global.isIPad;
-    setState(() {});
+    Get.find<DataController>().getDataCount();
   }
 
   @override
@@ -39,15 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(children: [
           Container(
             margin: const EdgeInsets.only(top: 30),
-            height: isIPad ? 200 : 120,
-            width: isIPad ? 200 : 120,
+            height: Global.isIPad ? 200 : 120,
+            width: Global.isIPad ? 200 : 120,
             child: Image.asset('assets/bdseal.png'),
           ),
           Container(
             margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
             child: CustomHeaderText(
               title: 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-              fontSize: isIPad ? 34 : 20,
+              fontSize: Global.isIPad ? 34 : 20,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -55,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.only(top: 5, left: 20, right: 20),
             child: CustomHeaderText(
               title: 'বাংলাদেশ পরিসংখ্যান ব্যুরো',
-              fontSize: isIPad ? 42 : 28,
+              fontSize: Global.isIPad ? 42 : 28,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -63,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
             margin:
                 const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 10),
             child: CustomHeaderText(
-              title: 'অর্থনৈতিক শুমারি ২০২৩ প্রকল্প',
-              fontSize: isIPad ? 48 : 32,
+              title: 'অর্থনৈতিক শুমারি ২০২৪ প্রকল্প',
+              fontSize: Global.isIPad ? 48 : 32,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -77,14 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   btnHeight: btnHeight,
                   counter: '123',
                   title: 'সর্বমোট জমা \nদেওয়া উপাত্ত্ব',
-                  isIPad: isIPad,
+                  isIPad: Global.isIPad,
                   onTap: () {},
                 ),
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  counter: '23',
-                  isIPad: isIPad,
+                  counter: CommonMethods.englishToBanglaNumberConverter(
+                      Get.find<DataController>().offlineDataCount.toString()),
+                  isIPad: Global.isIPad,
                   title: 'অফলাইনে জমা\nদেওয়া উপাত্ত্ব',
                   onTap: () {
                     Get.to(() => const OfflineDataListScreen());
@@ -93,10 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  isIPad: isIPad,
+                  isIPad: Global.isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
                   onTap: () {
-                    Get.to(EntryForm());
+                    Get.to(() => const EntryForm());
                   },
                 )
                 /*Container(
@@ -222,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),),*/
               ],
             ),
-          ),
+          )
         ]),
       ),
     );

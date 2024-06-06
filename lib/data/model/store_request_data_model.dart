@@ -22,6 +22,7 @@ class StoreLocalData {
 }
 
 class StoreRequestDataModel {
+  int? id;
   String? institutionName;
   String? mobile;
   String? phone;
@@ -37,7 +38,8 @@ class StoreRequestDataModel {
   String? dateTime;
 
   StoreRequestDataModel(
-      {this.institutionName,
+      {this.id,
+      this.institutionName,
       this.mobile,
       this.phone,
       this.email,
@@ -52,6 +54,7 @@ class StoreRequestDataModel {
       this.dateTime});
 
   StoreRequestDataModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     institutionName = json['institution_name'];
     mobile = json['mobile'];
     phone = json['phone'];
@@ -69,6 +72,7 @@ class StoreRequestDataModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = id;
     data['institution_name'] = this.institutionName;
     data['mobile'] = this.mobile;
     data['phone'] = this.phone;

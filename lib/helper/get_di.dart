@@ -14,7 +14,8 @@
 	 * Copyright (c) 2023 a2i
  */
 
-
+import 'package:bbs_ec/controllers/data_controller.dart';
+import 'package:bbs_ec/data/repo/data_repo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,9 +34,11 @@ Future<void> init() async {
   // Repository
   Get.lazyPut(
       () => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
-
+  Get.lazyPut(
+      () => DataRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
 
   //controller
   // Get.lazyPut(() => InternetController());
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
+  Get.lazyPut(() => DataController(dataRepo: Get.find()));
 }

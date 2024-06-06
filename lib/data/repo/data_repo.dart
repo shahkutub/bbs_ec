@@ -19,7 +19,20 @@ class DataRepo {
   Future<bool> storeDataToLocalServer(StoreRequestDataModel srdModel) async {
     StoreLocalData sld = getDataFromLocalServer();
     List<StoreRequestDataModel> dataList = sld.data ?? [];
-    dataList.add(srdModel);
+    final result = dataList
+        .where((e) =>
+            e.institutionName == srdModel.institutionName &&
+            e.mobile == srdModel.mobile &&
+            e.phone == srdModel.phone &&
+            e.email == srdModel.email)
+        .toList();
+    if (result.isEmpty) {
+      dataList.add(srdModel);
+    } else {
+      int index = dataList.indexOf(result[0]);
+      dataList[index] = srdModel;
+    }
+
     sld.data = dataList;
     return await sharedPreferences.setString(
         AppConstants.ARRAY_DATA, json.encode(sld.toJson()));

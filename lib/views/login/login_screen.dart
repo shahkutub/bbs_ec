@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_controller.dart';
-import '../../data/response/model/response_model.dart';
+import '../../data/model/response/model/response_model.dart';
 import '../shared/custom_button.dart';
 import '../shared/custom_sneakbar.dart';
 import '../shared/custom_text_field.dart';
