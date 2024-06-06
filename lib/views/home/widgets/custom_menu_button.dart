@@ -19,7 +19,7 @@ class CustomMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double reduceHeight = (isIPad ?? false) ? 80 : 30;
+    double reduceHeight = (isIPad ?? false) ? 0 : 30;
     return Container(
       margin: const EdgeInsets.only(left: 8, right: 8),
       width: btnWidth,
@@ -40,15 +40,15 @@ class CustomMenuButton extends StatelessWidget {
                 visible: counter != null,
                 child: Container(
                   margin: const EdgeInsets.only(top: 25),
-                  height: (isIPad ?? false) ? 160 : 44,
-                  width: (isIPad ?? false) ? 160 : 44,
+                  height: (isIPad ?? false) ? 100 : 44,
+                  width: (isIPad ?? false) ? 100 : 44,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Theme.of(context).primaryColor,
                       width: 2,
                     ),
                     borderRadius:
-                        BorderRadius.circular((isIPad ?? false) ? 80 : 22),
+                        BorderRadius.circular((isIPad ?? false) ? 50 : 22),
                   ),
                   child: Center(
                     child: Text(
@@ -70,7 +70,7 @@ class CustomMenuButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         fontFamily: 'Nikosh',
-                        fontSize: (isIPad ?? false) ? 36 : 18,
+                        fontSize: (isIPad ?? false) ? 32 : 18,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).primaryColor),
                     textAlign: TextAlign.center,

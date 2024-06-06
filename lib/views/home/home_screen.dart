@@ -1,7 +1,10 @@
+import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/views/custom/scroll_behavior.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
+import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,7 +14,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isIPad = false;
+  bool isIPad = true;
+
+  @override
+  void initState() {
+    super.initState();
+    isIPad = Global.isIPad;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -20,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double btnHeight = btnWidth * 1.2;
 
     // double addWidth = isIPad ? (btnWidth / 1.9) : (btnWidth / 1.7);
-    double reduceHeight = isIPad ? 50 : 0;
+    // double reduceHeight = isIPad ? 50 : 0;
     return Scaffold(
       body: ScrollConfiguration(
         behavior: ListBehavior(),
@@ -65,18 +76,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   btnHeight: btnHeight,
                   counter: '123',
                   title: 'সর্বমোট জমা \nদেওয়া উপাত্ত্ব',
+                  isIPad: isIPad,
                   onTap: () {},
                 ),
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
                   counter: '23',
+                  isIPad: isIPad,
                   title: 'অফলাইনে জমা\nদেওয়া উপাত্ত্ব',
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const OfflineDataListScreen());
+                  },
                 ),
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
+                  isIPad: isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
                   onTap: () {},
                 )
