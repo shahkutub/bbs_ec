@@ -8,6 +8,7 @@ class AppConstants {
   static const String BASE_URL = 'https://bbs-ec.nanoit.biz/api';
 
   static const String LOGIN_URI = '/auth/login';
+  static const String STORE_URI = '/economic-cencus/store';
   // training server
 
   // Shared Key
@@ -17,6 +18,8 @@ class AppConstants {
   static const String REMEMBER_ME = 'remember_me';
   static const String USER_PASSWORD = 'user_password';
   static const String USER_ID = 'user_id';
+
+  static const String ARRAY_DATA = 'array_store_data';
 
   //text
   static const String NO_DATA = 'তথ্য পাওয়া যায়নি';
