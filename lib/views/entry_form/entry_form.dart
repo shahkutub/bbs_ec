@@ -478,41 +478,33 @@ class _EntryFormState extends State<EntryForm> {
                               child: Text('জমা দিন',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 25),),
                             ),
                             onTap: () async {
-                              if (_formKey.currentState!.validate()) {
-                                try {
 
+                              final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
 
-                                } catch (error) {
-
-                                }
-                              }else{
-                                //final bool isValidEmail = false;
-                                final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
-
-                                if(nameEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                                }else if(phoneEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
-                                }else if(emailEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
-                                }else if(!isValidEmail){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
-                                }else if(dropdownValueYear.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
-                                }else if(dropdownValueOfficeType.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
-                                }else if(dropdownValueWonerType.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
-                                }else if(dropdownValueEconomicType.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
-                                }else if(maleEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
-                                }else if(femaleEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
-                                }else if(totalEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
-                                }
+                              if(nameEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                              }else if(phoneEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
+                              }else if(emailEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
+                              }else if(!isValidEmail){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
+                              }else if(dropdownValueYear.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
+                              }else if(dropdownValueOfficeType.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
+                              }else if(dropdownValueWonerType.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
+                              }else if(dropdownValueEconomicType.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
+                              }else if(maleEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
+                              }else if(femaleEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
+                              }else if(totalEditController.text.isEmpty){
+                                ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
                               }
+
                             },
                             // onTap: (){
                             //   final bool isValidEmail = false;
