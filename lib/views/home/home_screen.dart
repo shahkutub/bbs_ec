@@ -1,5 +1,6 @@
 import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/views/custom/scroll_behavior.dart';
+import 'package:bbs_ec/views/entry_form/entry_form.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
@@ -94,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   btnHeight: btnHeight,
                   isIPad: isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(EntryForm());
+                  },
                 )
                 /*Container(
                   margin: const EdgeInsets.only(left: 8, right: 8),
