@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
   useMaterial3: false,
-  fontFamily: 'NotoSanB',
+  fontFamily: 'Nikosh',
   primaryColor: const Color(0xff2d6951),
   primaryColorDark: const Color(0xff2d6951),
   disabledColor: const Color(0xFF7DAEB0),
@@ -28,9 +28,10 @@ ThemeData light = ThemeData(
   colorScheme: const ColorScheme.light(
       primary: Color(0xff2d6951), secondary: Color(0xff91f9d0)),
   appBarTheme: const AppBarTheme(
-    backgroundColor: Color(0xff2d6951),
+      centerTitle: true,
+      backgroundColor: Color(0xff2d6951),
       titleTextStyle: TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Nikosh',
           fontWeight: FontWeight.w700,
           fontSize: 16,
           color: Colors.white)),
