@@ -314,7 +314,7 @@ class _EntryFormState extends State<EntryForm> {
                                         alignment: Alignment.centerLeft,
                                       //width:width*0.2,
                                         height: width/8,
-                                        child: Text(country.name!,style: TextStyle(color: Colors.black),)),
+                                        child: Text(country.name!,style: TextStyle(color: Colors.black,fontSize: 17),)),
                                     value: country.name,
 
                                   );
@@ -561,16 +561,16 @@ class _EntryFormState extends State<EntryForm> {
       yearList.add(ItemData(name: val.toString(),id: '0'));
     }
     yearList = yearList.reversed.toList();
-    officeTypeList.add(ItemData(name: 'ক. প্রধান অফিস'.toString(),id: '0'));
-    officeTypeList.add(ItemData(name: 'খ. শাখা অফিস'.toString(),id: '0'));
-    officeTypeList.add(ItemData(name: 'গ. একক ইউনিট'.toString(),id: '0'));
+    officeTypeList.add(ItemData(name: 'ক. প্রধান অফিস'.toString(),id: '1'));
+    officeTypeList.add(ItemData(name: 'খ. শাখা অফিস'.toString(),id: '2'));
+    officeTypeList.add(ItemData(name: 'গ. একক ইউনিট'.toString(),id: '3'));
 
-    wonerTypeList.add(ItemData(name: 'ক. একক'.toString(),id: '0'));
-    wonerTypeList.add(ItemData(name: 'খ. যৌথ বা অংশীদারিত্ব'.toString(),id: '0'));
+    wonerTypeList.add(ItemData(name: 'ক. একক'.toString(),id: '1'));
+    wonerTypeList.add(ItemData(name: 'খ. যৌথ বা অংশীদারিত্ব'.toString(),id: '2'));
 
-    economicTypeList.add(ItemData(name: 'ক. কৃষি (খামার) সম্পর্কিত'.toString(),id: '0'));
-    economicTypeList.add(ItemData(name: 'খ. শিল্প সম্পর্কিত'.toString(),id: '0'));
-    economicTypeList.add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(),id: '0'));
+    economicTypeList.add(ItemData(name: 'ক. কৃষি (খামার) সম্পর্কিত'.toString(),id: '1'));
+    economicTypeList.add(ItemData(name: 'খ. শিল্প সম্পর্কিত'.toString(),id: '2'));
+    economicTypeList.add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(),id: '3'));
 
     //print('year'+yearList.length.toString());
     setState(() {
