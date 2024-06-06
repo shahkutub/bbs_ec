@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.only(top: 0),
             height: isIPad ? 200 : 120,
             width: isIPad ? 200 : 120,
-            child: Image.asset('assets/bdseal.jpg'),
+            child: Image.asset('assets/bdseal.png'),
           )
         ]),
       ),
