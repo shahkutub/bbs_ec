@@ -1,4 +1,5 @@
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,8 @@ class _EntryFormState extends State<EntryForm> {
   List<ItemData> wonerTypeList = [];
   List<ItemData> economicTypeList = [];
 
+  int male = 0;
+  int female = 0;
 
 
   @override
@@ -38,7 +41,28 @@ class _EntryFormState extends State<EntryForm> {
     // TODO: implement initState
     super.initState();
     addListData();
+    // maleEditController.text = male.toString();
+    // femaleEditController.text = female.toString();
+    maleEditController.addListener(() {
+      male = maleEditController.text.isNotEmpty ? int.parse(maleEditController.text)  : 0 ;
+      female = femaleEditController.text.isNotEmpty ? int.parse(femaleEditController.text) : 0 ;
+      totalEditController.text = (male+female).toString();
+    });
 
+    femaleEditController.addListener(() {
+      male = maleEditController.text.isNotEmpty ? int.parse(maleEditController.text)  : 0 ;
+      female = femaleEditController.text.isNotEmpty ? int.parse(femaleEditController.text) : 0 ;
+      totalEditController.text = (male+female).toString();
+    });
+  }
+
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    maleEditController.dispose();
+    femaleEditController.dispose();
+    super.dispose();
   }
 
 
@@ -67,7 +91,7 @@ class _EntryFormState extends State<EntryForm> {
                           controller: nameEditController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি) লিখুন';
+                              return 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি) দিন';
                             }
                             return null;
                           },
@@ -90,7 +114,7 @@ class _EntryFormState extends State<EntryForm> {
                               controller: phoneEditController,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'ফোন/মোবাইল (১) লিখুন';
+                                  return 'ফোন/মোবাইল (১) দিন';
                                 }
                                 return null;
                               },
@@ -114,7 +138,7 @@ class _EntryFormState extends State<EntryForm> {
                           controller: alterPhoneEditController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'মোবাইল (২) লিখুন';
+                              return 'মোবাইল (২) দিন';
                             }
                             return null;
                           },
@@ -137,7 +161,7 @@ class _EntryFormState extends State<EntryForm> {
                           controller: emailEditController,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'ইমেইল লিখুন';
+                              return 'ইমেইল দিন';
                             }
                             return null;
                           },
@@ -366,14 +390,17 @@ class _EntryFormState extends State<EntryForm> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: maleEditController,
-                                        // validator: (value) {
-                                        //   if (value!.isEmpty) {
-                                        //     return 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি)';
-                                        //   }
-                                        //   return null;
+                                        // onChanged: (text){
+                                        //
                                         // },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'কর্মরত জনবল পুরুষ সংখ্যা দিন';
+                                          }
+                                          return null;
+                                        },
                                         decoration: InputDecoration(
                                           labelText: 'পুরুষ',
                                           labelStyle: TextStyle(color: Colors.blueAccent,fontSize: 15),
@@ -387,14 +414,14 @@ class _EntryFormState extends State<EntryForm> {
                                     ),
                                     SizedBox(width: 5,),
                                     Flexible(
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: femaleEditController,
-                                        // validator: (value) {
-                                        //   if (value!.isEmpty) {
-                                        //     return 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি)';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'কর্মরত জনবল মহিলা সংখ্যা দিন';
+                                          }
+                                          return null;
+                                        },
                                         decoration: InputDecoration(
                                           labelText: 'মহিলা',
                                           labelStyle: TextStyle(color: Colors.blueAccent,fontSize: 15),
@@ -408,14 +435,14 @@ class _EntryFormState extends State<EntryForm> {
                                     ),
                                     SizedBox(width: 5,),
                                     Flexible(
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: totalEditController,
-                                        // validator: (value) {
-                                        //   if (value!.isEmpty) {
-                                        //     return 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি)';
-                                        //   }
-                                        //   return null;
-                                        // },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'মোট কর্মরত জনবল সংখ্যা দিন';
+                                          }
+                                          return null;
+                                        },
                                         decoration: InputDecoration(
                                           labelText: 'মোট',
                                           labelStyle: TextStyle(color: Colors.blueAccent,fontSize: 15),
@@ -459,20 +486,31 @@ class _EntryFormState extends State<EntryForm> {
 
                                 }
                               }else{
-                                final bool isValidEmail = false;
-                                //final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
+                                //final bool isValidEmail = false;
+                                final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
 
                                 if(nameEditController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম লিখুন'));
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                                }else if(phoneEditController.text.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
                                 }else if(emailEditController.text.isEmpty){
-                                  // ToastComponent.showDialog(
-                                  //   "Input email address",
-                                  // );
-
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
                                 }else if(!isValidEmail){
-                                  // ToastComponent.showDialog(
-                                  //   "Invalid email address",
-                                  // );
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
+                                }else if(dropdownValueYear.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
+                                }else if(dropdownValueOfficeType.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
+                                }else if(dropdownValueWonerType.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
+                                }else if(dropdownValueEconomicType.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
+                                }else if(maleEditController.text.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
+                                }else if(femaleEditController.text.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
+                                }else if(totalEditController.text.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
                                 }
                               }
                             },
@@ -482,7 +520,7 @@ class _EntryFormState extends State<EntryForm> {
                             //
                             //
                             //   if(nameEditController.text.isEmpty){
-                            //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম লিখুন'));
+                            //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
                             //   }else if(emailEditController.text.isEmpty){
                             //     // ToastComponent.showDialog(
                             //     //   "Input email address",
