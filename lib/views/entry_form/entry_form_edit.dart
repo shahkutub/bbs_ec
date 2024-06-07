@@ -57,9 +57,11 @@ class _EntryFormState extends State<EntryFormEdit> {
     alterPhoneEditController.text = widget.data!.mobile.toString();
     emailEditController.text = widget.data!.email.toString();
     emailEditController.text = widget.data!.email.toString();
-
     maleEditController.text = widget.data!.maleWorkerCount.toString();
     femaleEditController.text = widget.data!.femaleWorkerCount.toString();
+    int total = widget.data!.maleWorkerCount! + widget.data!.femaleWorkerCount!;
+    totalEditController.text = total.toString();
+
     // femaleEditController.text = female.toString();
     maleEditController.addListener(() {
       male = maleEditController.text.isNotEmpty
@@ -676,8 +678,10 @@ class _EntryFormState extends State<EntryFormEdit> {
                                 officeType: officeType,
                                 ownershipType: ownerType,
                                 economicActivityType: economicType,
-                                maleWorkerCount: male,
-                                femaleWorkerCount: female,
+                                maleWorkerCount:
+                                    int.parse(maleEditController.text),
+                                femaleWorkerCount:
+                                    int.parse(femaleEditController.text),
                                 status: 1,
                                 dateTime: f.format(DateTime.now()),
                                 server: false,
@@ -736,6 +740,7 @@ class _EntryFormState extends State<EntryFormEdit> {
       yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
+
     officeTypeList.add(ItemData(name: 'ক. প্রধান অফিস'.toString(), id: 1));
     officeTypeList.add(ItemData(name: 'খ. শাখা অফিস'.toString(), id: 2));
     officeTypeList.add(ItemData(name: 'গ. একক ইউনিট'.toString(), id: 3));
@@ -750,21 +755,25 @@ class _EntryFormState extends State<EntryFormEdit> {
         .add(ItemData(name: 'খ. শিল্প সম্পর্কিত'.toString(), id: 2));
     economicTypeList.add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(), id: 3));
 
+    dropdownValueYear = widget.data!.establishYear.toString();
     officeTypeList.forEach((element) {
       if (element.id == widget.data!.officeType) {
         officeTypehint = element.name!;
+        dropdownValueOfficeType = element.name!;
       }
     });
 
     wonerTypeList.forEach((element) {
       if (element.id == widget.data!.ownershipType) {
         ownerTypehint = element.name!;
+        dropdownValueWonerType = element.name!;
       }
     });
 
     economicTypeList.forEach((element) {
       if (element.id == widget.data!.economicActivityType) {
         economicTypehint = element.name!;
+        dropdownValueEconomicType = element.name!;
       }
     });
 
