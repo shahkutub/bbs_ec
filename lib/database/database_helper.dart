@@ -61,11 +61,13 @@ class DatabaseHelper {
           ''');
   }
 
-  Future<void> addInfoData(InfoData infoData) async {
+  Future<bool> addInfoData(InfoData infoData) async {
     final db = await instance.database;
+    bool save = false;
     if (infoData.id == null) {
       await db.insert(tableInfoData, infoData.toJson());
       debugPrint('Info Data inserted');
+      save = true;
     } else {
       await db.update(
         tableInfoData,
@@ -74,7 +76,27 @@ class DatabaseHelper {
         whereArgs: [infoData.id],
       );
       debugPrint('Info Data updated');
+      save = true;
     }
+    return save;
+  }
+
+  Future<bool> updateServerStatus(
+      bool server, String mobile, String email) async {
+    final db = await instance.database;
+    bool save = false;
+    List<Map<String, dynamic>> result = await db.query(tableInfoData,
+        where: '${InfoDataFields.mobile} = ? AND ${InfoDataFields.email} = ?',
+        whereArgs: [mobile, email]);
+    if (result.isNotEmpty) {
+      InfoData data = InfoData.fromJson(result.first);
+      await db.rawQuery(
+          'UPDATE $tableInfoData SET ${InfoDataFields.server}=${server ? 1 : 0} WHERE ${InfoDataFields.id}=${data.id}');
+      debugPrint('Info Data server updated');
+      save = true;
+    }
+
+    return save;
   }
 
   Future<List<InfoData>> getInfoDataList() async {

@@ -14,15 +14,21 @@ class DataRepo {
   final SharedPreferences sharedPreferences;
   DataRepo({required this.apiClient, required this.sharedPreferences});
 
-  Future<Response> storeDataToServer(StoreRequestDataModel srdModel) async {
+  Future<Response> storeDataToServer(InfoData srdModel) async {
     return await apiClient.postData(AppConstants.STORE_URI, srdModel.toJson());
   }
 
-  Future<void> addInfoDataToDB(InfoData infoData) async {
-    await DatabaseHelper.instance.addInfoData(infoData);
+  Future<bool> updateServerStatusInDB(
+      bool server, String mobile, String email) async {
+    return await DatabaseHelper.instance
+        .updateServerStatus(server, mobile, email);
   }
 
-  Future<List<InfoData>> readAllInfoData() async {
+  Future<bool> storeInfoDataToDB(InfoData infoData) async {
+    return await DatabaseHelper.instance.addInfoData(infoData);
+  }
+
+  Future<List<InfoData>> readInfoDataList() async {
     return await DatabaseHelper.instance.getInfoDataList();
   }
 

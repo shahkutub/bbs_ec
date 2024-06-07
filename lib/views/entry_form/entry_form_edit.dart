@@ -1,13 +1,14 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
+import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class EntryFormEdit extends StatefulWidget {
-  final StoreRequestDataModel? data;
-   EntryFormEdit({super.key, this.data});
+  final InfoData? data;
+  EntryFormEdit({super.key, this.data});
 
   @override
   State<EntryFormEdit> createState() => _EntryFormState();
@@ -19,7 +20,6 @@ class _EntryFormState extends State<EntryFormEdit> {
   String dropdownValueOfficeType = '';
   String dropdownValueWonerType = '';
   String dropdownValueEconomicType = '';
-
 
   String officeTypehint = '';
   String ownerTypehint = '';
@@ -52,14 +52,14 @@ class _EntryFormState extends State<EntryFormEdit> {
     //Get.find<DataController>().getDataList();
     addListData();
 
-     nameEditController.text = widget.data!.institutionName.toString();
-     phoneEditController.text = widget.data!.phone.toString();
-     alterPhoneEditController.text = widget.data!.mobile.toString();
-     emailEditController.text = widget.data!.email.toString();
-     emailEditController.text = widget.data!.email.toString();
+    nameEditController.text = widget.data!.institutionName.toString();
+    phoneEditController.text = widget.data!.phone.toString();
+    alterPhoneEditController.text = widget.data!.mobile.toString();
+    emailEditController.text = widget.data!.email.toString();
+    emailEditController.text = widget.data!.email.toString();
 
-     maleEditController.text = widget.data!.maleWorkerCount.toString();
-     femaleEditController.text = widget.data!.femaleWorkerCount.toString();
+    maleEditController.text = widget.data!.maleWorkerCount.toString();
+    femaleEditController.text = widget.data!.femaleWorkerCount.toString();
     // femaleEditController.text = female.toString();
     maleEditController.addListener(() {
       male = maleEditController.text.isNotEmpty
@@ -238,7 +238,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(widget.data!.establishYear.toString(),style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        widget.data!.establishYear.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueYear.isNotEmpty
                                           ? dropdownValueYear
                                           : null,
@@ -299,7 +303,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(officeTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        officeTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueOfficeType.isNotEmpty
                                           ? dropdownValueOfficeType
                                           : null,
@@ -359,7 +367,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(ownerTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        ownerTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueWonerType.isNotEmpty
                                           ? dropdownValueWonerType
                                           : null,
@@ -418,7 +430,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(economicTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        economicTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value:
                                           dropdownValueEconomicType.isNotEmpty
                                               ? dropdownValueEconomicType
@@ -651,8 +667,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                                 return;
                               }
 
-                              StoreRequestDataModel srdModel =
-                                  StoreRequestDataModel(
+                              InfoData srdModel = InfoData(
                                 institutionName: nameEditController.text,
                                 mobile: phoneEditController.text,
                                 phone: alterPhoneEditController.text,
@@ -736,19 +751,19 @@ class _EntryFormState extends State<EntryFormEdit> {
     economicTypeList.add(ItemData(name: 'গ. সেবা সম্পর্কিত'.toString(), id: 3));
 
     officeTypeList.forEach((element) {
-      if(element.id == widget.data!.officeType){
+      if (element.id == widget.data!.officeType) {
         officeTypehint = element.name!;
       }
     });
 
     wonerTypeList.forEach((element) {
-      if(element.id == widget.data!.ownershipType){
+      if (element.id == widget.data!.ownershipType) {
         ownerTypehint = element.name!;
       }
     });
 
     economicTypeList.forEach((element) {
-      if(element.id == widget.data!.economicActivityType){
+      if (element.id == widget.data!.economicActivityType) {
         economicTypehint = element.name!;
       }
     });
