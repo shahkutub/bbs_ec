@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,33 +29,11 @@ class DataRepo {
     return await DatabaseHelper.instance.getInfoDataList();
   }
 
-  Future<bool> storeDataToLocalServer(StoreRequestDataModel srdModel) async {
-    StoreLocalData sld = getDataFromLocalServer();
-    List<StoreRequestDataModel> dataList = sld.data ?? [];
-    final result = dataList
-        .where((e) =>
-            e.institutionName == srdModel.institutionName &&
-            e.mobile == srdModel.mobile &&
-            e.phone == srdModel.phone &&
-            e.email == srdModel.email)
-        .toList();
-    if (result.isEmpty) {
-      dataList.add(srdModel);
-    } else {
-      int index = dataList.indexOf(result[0]);
-      dataList[index] = srdModel;
-    }
-
-    sld.data = dataList;
-    return await sharedPreferences.setString(
-        AppConstants.ARRAY_DATA, json.encode(sld.toJson()));
+  Future<int> getOfflineDataCount() async {
+    return await DatabaseHelper.instance.getOfflineDataCount();
   }
 
-  StoreLocalData getDataFromLocalServer() {
-    String getData = sharedPreferences.getString(AppConstants.ARRAY_DATA) ?? '';
-    if (getData.isEmpty) {
-      return StoreLocalData();
-    }
-    return StoreLocalData.fromJson(json.decode(getData));
+  Future<int> getTotalDataCount() async {
+    return await DatabaseHelper.instance.getTotalDataCount();
   }
 }

@@ -17,10 +17,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _controller = Get.find<DataController>();
+  int offline = 0;
+  int total = 0;
   @override
   void initState() {
     super.initState();
-    Get.find<DataController>().getDataCount();
+    getDataCount();
+  }
+
+  void getDataCount() async {
+    offline = await _controller.getOfflineDataCount();
+    total = await _controller.getTotalDataCount();
+    setState(() {});
   }
 
   @override
@@ -74,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  counter: '123',
+                  counter:
+                      CommonMethods.englishToBanglaNumberConverter('$total'),
                   title: 'সর্বমোট জমাকৃত\n উপাত্ত্ব',
                   isIPad: Global.isIPad,
                   onTap: () {},
@@ -82,12 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  counter: CommonMethods.englishToBanglaNumberConverter(
-                      Get.find<DataController>().offlineDataCount.toString()),
+                  counter:
+                      CommonMethods.englishToBanglaNumberConverter('$offline'),
                   isIPad: Global.isIPad,
                   title: 'অফলাইনে জমাকৃত\n উপাত্ত্ব',
                   onTap: () {
-                    Get.to(() => const OfflineDataListScreen());
+                    Get.to(() => const OfflineDataListScreen())!
+                        .whenComplete(() => getDataCount());
+                    ;
                   },
                 ),
                 CustomMenuButton(
@@ -96,7 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   isIPad: Global.isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
                   onTap: () {
-                    Get.to(() => const EntryForm());
+                    Get.to(() => const EntryForm())!
+                        .whenComplete(() => getDataCount());
                   },
                 )
                 /*Container(

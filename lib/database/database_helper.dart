@@ -43,7 +43,7 @@ class DatabaseHelper {
     //tableSubjects create
     await db.execute('''
           CREATE TABLE IF NOT EXISTS $tableInfoData (
-            $columnId INTEGER PRIMARY KEY,
+            ${InfoDataFields.id} INTEGER PRIMARY KEY,
             ${InfoDataFields.institution_name} TEXT,
             ${InfoDataFields.mobile} TEXT,
             ${InfoDataFields.phone} TEXT,
@@ -109,7 +109,29 @@ class DatabaseHelper {
     if (result.isNotEmpty) {
       infoDataList = result.map((json) => InfoData.fromJson(json)).toList();
     }
-
     return infoDataList;
+  }
+
+  Future<int> getOfflineDataCount() async {
+    final db = await instance.database;
+    List<InfoData> infoDataList = [];
+
+    List<Map<String, dynamic>> result =
+        await db.query(tableInfoData, where: '${InfoDataFields.server} = 0');
+    if (result.isNotEmpty) {
+      infoDataList = result.map((json) => InfoData.fromJson(json)).toList();
+    }
+    return infoDataList.length;
+  }
+
+  Future<int> getTotalDataCount() async {
+    final db = await instance.database;
+    List<InfoData> infoDataList = [];
+
+    List<Map<String, dynamic>> result = await db.query(tableInfoData);
+    if (result.isNotEmpty) {
+      infoDataList = result.map((json) => InfoData.fromJson(json)).toList();
+    }
+    return infoDataList.length;
   }
 }

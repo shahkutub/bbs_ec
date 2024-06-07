@@ -9,6 +9,7 @@ class AppConstants {
 
   static const String LOGIN_URI = '/auth/login';
   static const String STORE_URI = '/economic-cencus/store';
+  static const String UPDATE_URI = '/economic-cencus/update/';
   // training server
 
   // Shared Key

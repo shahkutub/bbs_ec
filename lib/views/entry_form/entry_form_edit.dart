@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/model/global.dart';
+
 class EntryFormEdit extends StatefulWidget {
   final InfoData? data;
   EntryFormEdit({super.key, this.data});
@@ -98,7 +100,10 @@ class _EntryFormState extends State<EntryFormEdit> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('লিস্টিং ফরম'),
+        title: Text(
+          'উপাত্ত্ব সংশোধন ফরম',
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(50),
@@ -596,123 +601,130 @@ class _EntryFormState extends State<EntryFormEdit> {
                         height: 40,
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: width / 2,
-                              height: width / 8,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  border: Border.all(color: Colors.green),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: const Text(
-                                'জমা দিন',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25),
+                      Visibility(
+                        visible: (widget.data!.server ?? false) == false,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width / 2,
+                                height: width / 8,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    border: Border.all(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: const Text(
+                                  'জমা দিন',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
                               ),
+                              onTap: () async {
+                                final bool isValidEmail =
+                                    EmailValidator.validate(
+                                        emailEditController.text.toString());
+
+                                if (nameEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                                  return;
+                                } else if (phoneEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
+                                  return;
+                                } else if (emailEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
+                                  return;
+                                } else if (!isValidEmail) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
+                                  return;
+                                } else if (dropdownValueYear.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueOfficeType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueWonerType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'মালিকানার ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueEconomicType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (maleEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'কর্মরত জনবল পুরুষ সংখ্যা দিন'));
+                                  return;
+                                } else if (femaleEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'কর্মরত জনবল মহিলা সংখ্যা দিন'));
+                                  return;
+                                } else if (totalEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
+                                  return;
+                                }
+
+                                InfoData srdModel = InfoData(
+                                  institutionName: nameEditController.text,
+                                  mobile: phoneEditController.text,
+                                  phone: alterPhoneEditController.text,
+                                  email: emailEditController.text,
+                                  establishYear: dropdownValueYear,
+                                  officeType: officeType,
+                                  ownershipType: ownerType,
+                                  economicActivityType: economicType,
+                                  maleWorkerCount:
+                                      int.parse(maleEditController.text),
+                                  femaleWorkerCount:
+                                      int.parse(femaleEditController.text),
+                                  status: 1,
+                                  dateTime: f.format(DateTime.now()),
+                                  server: false,
+                                );
+                                Get.find<DataController>().storeData(srdModel);
+                              },
+                              // onTap: (){
+                              //   final bool isValidEmail = false;
+                              //   //final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
+                              //
+                              //
+                              //   if(nameEditController.text.isEmpty){
+                              //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                              //   }else if(emailEditController.text.isEmpty){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Input email address",
+                              //     // );
+                              //
+                              //   }else if(!isValidEmail){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Invalid email address",
+                              //     // );
+                              //   }else if(phoneEditController.text.isEmpty){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Input mobile number",
+                              //     // );
+                              //
+                              //   }
+                              // },
                             ),
-                            onTap: () async {
-                              final bool isValidEmail = EmailValidator.validate(
-                                  emailEditController.text.toString());
-
-                              if (nameEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                                return;
-                              } else if (phoneEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
-                                return;
-                              } else if (emailEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
-                                return;
-                              } else if (!isValidEmail) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
-                                return;
-                              } else if (dropdownValueYear.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueOfficeType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueWonerType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueEconomicType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (maleEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
-                                return;
-                              } else if (femaleEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
-                                return;
-                              } else if (totalEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
-                                return;
-                              }
-
-                              InfoData srdModel = InfoData(
-                                institutionName: nameEditController.text,
-                                mobile: phoneEditController.text,
-                                phone: alterPhoneEditController.text,
-                                email: emailEditController.text,
-                                establishYear: dropdownValueYear,
-                                officeType: officeType,
-                                ownershipType: ownerType,
-                                economicActivityType: economicType,
-                                maleWorkerCount:
-                                    int.parse(maleEditController.text),
-                                femaleWorkerCount:
-                                    int.parse(femaleEditController.text),
-                                status: 1,
-                                dateTime: f.format(DateTime.now()),
-                                server: false,
-                              );
-                              Get.find<DataController>().storeData(srdModel);
-                            },
-                            // onTap: (){
-                            //   final bool isValidEmail = false;
-                            //   //final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
-                            //
-                            //
-                            //   if(nameEditController.text.isEmpty){
-                            //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                            //   }else if(emailEditController.text.isEmpty){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Input email address",
-                            //     // );
-                            //
-                            //   }else if(!isValidEmail){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Invalid email address",
-                            //     // );
-                            //   }else if(phoneEditController.text.isEmpty){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Input mobile number",
-                            //     // );
-                            //
-                            //   }
-                            // },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 40,

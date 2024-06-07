@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/model/global.dart';
+
 class EntryForm extends StatefulWidget {
   const EntryForm({super.key});
 
@@ -83,7 +85,10 @@ class _EntryFormState extends State<EntryForm> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('লিস্টিং ফরম'),
+        title: Text(
+          'নতুন উপাত্ত্ব সংযোজন ফরম',
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(50),
