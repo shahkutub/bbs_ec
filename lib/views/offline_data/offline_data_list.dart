@@ -1,5 +1,6 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/global.dart';
+import 'package:bbs_ec/views/entry_form/entry_form_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,25 +33,30 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
             itemCount: controller.dataList.length,
             itemBuilder: (context, index) {
               final data = controller.dataList[index];
-              return Card(
-                margin: const EdgeInsets.all(10),
-                elevation: 3.0,
-                child: ListTile(
-                  title: Text(
-                    '${index + 1}. ${data.institutionName ?? ''}',
-                    style: TextStyle(
-                        fontSize: (Global.isIPad ? 28 : 18),
-                        color: Theme.of(context).primaryColor),
-                  ),
-                  subtitle: Text(
-                    '      ${data.dateTime ?? ''}',
-                    style: TextStyle(fontSize: (Global.isIPad ? 22 : 14)),
-                  ),
-                  trailing: Visibility(
-                    visible: data.server ?? false,
-                    child: Icon(
-                      Icons.done,
-                      color: Theme.of(context).primaryColor,
+              return InkWell(
+                onTap: (){
+                  Get.to(() =>  EntryFormEdit(data:data));
+                },
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  elevation: 3.0,
+                  child: ListTile(
+                    title: Text(
+                      '${index + 1}. ${data.institutionName ?? ''}',
+                      style: TextStyle(
+                          fontSize: (Global.isIPad ? 28 : 18),
+                          color: Theme.of(context).primaryColor),
+                    ),
+                    subtitle: Text(
+                      '      ${data.dateTime ?? ''}',
+                      style: TextStyle(fontSize: (Global.isIPad ? 22 : 14)),
+                    ),
+                    trailing: Visibility(
+                      visible: data.server ?? false,
+                      child: Icon(
+                        Icons.done,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),
