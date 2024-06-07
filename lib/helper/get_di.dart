@@ -15,6 +15,7 @@
  */
 
 import 'package:bbs_ec/controllers/data_controller.dart';
+import 'package:bbs_ec/controllers/internet_controller.dart';
 import 'package:bbs_ec/data/repo/data_repo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,4 +42,5 @@ Future<void> init() async {
   // Get.lazyPut(() => InternetController());
   Get.lazyPut(() => AuthController(authRepo: Get.find()));
   Get.lazyPut(() => DataController(dataRepo: Get.find()));
+  Get.lazyPut(() => InternetController());
 }

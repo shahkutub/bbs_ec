@@ -1,3 +1,4 @@
+import 'package:bbs_ec/controllers/internet_controller.dart';
 import 'package:bbs_ec/data/repo/data_repo.dart';
 import 'package:bbs_ec/database/database_helper.dart';
 import 'package:bbs_ec/database/info_data_table.dart';
@@ -15,12 +16,13 @@ class DataController extends GetxController implements GetxService {
   void storeData(InfoData srdm) async {
     final result = await dataRepo.storeInfoDataToDB(srdm);
     if (result) {
-      storeInfoData(
-        srdm,
-        () {
-          Get.back();
-        },
-      );
+      if (Get.find<InternetController>().connectedToNet) {
+        storeInfoData(
+          srdm,
+          () {},
+        );
+      }
+      Get.back();
     }
   }
 
@@ -41,7 +43,6 @@ class DataController extends GetxController implements GetxService {
 
   void syncInfoData() async {
     for (InfoData data in _dataList) {
-      print(data.toJson());
       if ((data.server ?? false) == false) {
         storeInfoData(data, () {
           getInfoDataList();
