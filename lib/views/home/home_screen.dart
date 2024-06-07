@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
                   counter: '123',
-                  title: 'সর্বমোট জমা \nদেওয়া উপাত্ত্ব',
+                  title: 'সর্বমোট জমাকৃত\n উপাত্ত্ব',
                   isIPad: Global.isIPad,
                   onTap: () {},
                 ),
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   counter: CommonMethods.englishToBanglaNumberConverter(
                       Get.find<DataController>().offlineDataCount.toString()),
                   isIPad: Global.isIPad,
-                  title: 'অফলাইনে জমা\nদেওয়া উপাত্ত্ব',
+                  title: 'অফলাইনে জমাকৃত\n উপাত্ত্ব',
                   onTap: () {
                     Get.to(() => const OfflineDataListScreen());
                   },

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
+import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../database/database_helper.dart';
 import '../../utils/app_constants.dart';
 import '../api/api_client.dart';
 
@@ -14,6 +16,14 @@ class DataRepo {
 
   Future<Response> storeDataToServer(StoreRequestDataModel srdModel) async {
     return await apiClient.postData(AppConstants.STORE_URI, srdModel.toJson());
+  }
+
+  Future<void> addInfoDataToDB(InfoData infoData) async {
+    await DatabaseHelper.instance.addInfoData(infoData);
+  }
+
+  Future<List<InfoData>> readAllInfoData() async {
+    return await DatabaseHelper.instance.getInfoDataList();
   }
 
   Future<bool> storeDataToLocalServer(StoreRequestDataModel srdModel) async {
