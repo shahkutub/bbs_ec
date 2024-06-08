@@ -104,6 +104,7 @@ class _ProfileDialogState extends State<ProfileDialog>
                       },
                       child: Text('logout',
                           style: TextStyle(
+                              fontSize: 20,
                               color: Theme.of(context).errorColor,
                               fontWeight: FontWeight.w600)))
                 ]),
@@ -125,11 +126,13 @@ class InfoWidget extends StatelessWidget {
       children: [
         Text("$title:",
             style: TextStyle(
+                fontSize: 20,
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w500)),
         Text(
           value,
           style: TextStyle(
+              fontSize: 20,
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w600),
         )
