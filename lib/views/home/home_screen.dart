@@ -1,3 +1,4 @@
+import 'package:bbs_ec/controllers/auth_controller.dart';
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/helper/common_method.dart';
@@ -6,6 +7,7 @@ import 'package:bbs_ec/views/entry_form/entry_form.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
+import 'package:bbs_ec/views/shared/profile_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,6 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
     // double addWidth = isIPad ? (btnWidth / 1.9) : (btnWidth / 1.7);
     // double reduceHeight = isIPad ? 50 : 0;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.find<AuthController>().setLoginFromSharedPref();
+                Get.dialog(const ProfileDialog());
+              },
+              icon: const Icon(Icons.person_outline))
+        ],
+      ),
       body: ScrollConfiguration(
         behavior: ListBehavior(),
         child: ListView(children: [
