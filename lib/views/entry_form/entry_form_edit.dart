@@ -97,8 +97,6 @@ class _EntryFormState extends State<EntryFormEdit> {
     _currentPosition = await LocationHelper.getCurrentPosition();
     latEditController.text = _currentPosition!.latitude.toString();
     lonEditController.text = _currentPosition!.longitude.toString();
-
-
   }
 
   @override
@@ -116,7 +114,9 @@ class _EntryFormState extends State<EntryFormEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'উপাত্ত্ব সংশোধন ফরম',
+          (widget.data!.server ?? false)
+              ? 'উপাত্ত্ব প্রদর্শনী ফরম'
+              : 'উপাত্ত্ব সংশোধন ফরম',
           style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
         ),
       ),
@@ -641,7 +641,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Flexible(
                                     child: TextFormField(
@@ -666,7 +666,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                                             10.0, 15.0, 10.0, 15.0),
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                                BorderRadius.circular(5.0)),
                                       ),
                                       style: TextStyle(
                                         fontSize: 15,
@@ -697,7 +697,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                                             10.0, 15.0, 10.0, 15.0),
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                                BorderRadius.circular(5.0)),
                                       ),
                                       style: TextStyle(
                                         fontSize: 15,
@@ -705,7 +705,6 @@ class _EntryFormState extends State<EntryFormEdit> {
                                       keyboardType: TextInputType.number,
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),
