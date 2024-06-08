@@ -3,7 +3,7 @@ class InfoDataFields {
     /// Add all fields
     id, institution_name, mobile, phone, email, establish_year, office_type,
     ownership_type, economic_activity_type, male_worker_count,
-    female_worker_count, status, server, date_time,
+    female_worker_count, status, server, date_time, latitude, longitude,
   ];
 
   static final String id = 'id';
@@ -20,6 +20,8 @@ class InfoDataFields {
   static final String status = 'status';
   static final String server = 'server';
   static final String date_time = 'date_time';
+  static final String latitude = 'latitude';
+  static final String longitude = 'longitude';
 }
 
 class InfoData {
@@ -37,6 +39,8 @@ class InfoData {
   final int? status;
   final bool? server;
   final String? dateTime;
+  final String? latitude;
+  final String? longitude;
   const InfoData(
       {this.id,
       this.institutionName,
@@ -51,7 +55,9 @@ class InfoData {
       this.femaleWorkerCount,
       this.status,
       this.server,
-      this.dateTime});
+      this.dateTime,
+      this.latitude,
+      this.longitude});
   InfoData copy({
     int? id,
     String? institutionName,
@@ -67,6 +73,8 @@ class InfoData {
     int? status,
     bool? server,
     String? dateTime,
+    String? latitude,
+    String? longitude,
   }) =>
       InfoData(
         id: id ?? this.id,
@@ -83,6 +91,8 @@ class InfoData {
         status: status ?? this.status,
         server: server ?? this.server,
         dateTime: dateTime ?? this.dateTime,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
       );
   static InfoData fromJson(Map<String, dynamic> json) => InfoData(
         id: json['id'],
@@ -99,6 +109,8 @@ class InfoData {
         status: json[InfoDataFields.status],
         server: json[InfoDataFields.server] == 0 ? false : true,
         dateTime: json[InfoDataFields.date_time],
+        latitude: json[InfoDataFields.latitude],
+        longitude: json[InfoDataFields.longitude],
       );
   Map<String, Object?> toJson() => {
         InfoDataFields.institution_name: institutionName,
@@ -114,6 +126,8 @@ class InfoData {
         InfoDataFields.status: status,
         InfoDataFields.server: (server ?? false) ? 1 : 0,
         InfoDataFields.date_time: dateTime,
+        InfoDataFields.latitude: latitude,
+        InfoDataFields.longitude: longitude
       };
   Map<String, Object?> toLocalJson() => {
         InfoDataFields.id: id,
@@ -130,5 +144,7 @@ class InfoData {
         InfoDataFields.status: status,
         InfoDataFields.server: (server ?? false) ? 1 : 0,
         InfoDataFields.date_time: dateTime,
+        InfoDataFields.latitude: latitude,
+        InfoDataFields.longitude: longitude
       };
 }

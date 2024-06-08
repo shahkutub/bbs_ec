@@ -56,7 +56,9 @@ class DatabaseHelper {
             ${InfoDataFields.female_worker_count} INTEGER,
             ${InfoDataFields.status} INTEGER,
             ${InfoDataFields.server} INTEGER,
-            ${InfoDataFields.date_time} TEXT
+            ${InfoDataFields.date_time} TEXT,
+            ${InfoDataFields.latitude} TEXT,
+            ${InfoDataFields.longitude} TEXT
           )
           ''');
   }
