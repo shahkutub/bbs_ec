@@ -498,7 +498,7 @@ class _EntryFormState extends State<EntryForm> {
                                         labelStyle: TextStyle(
                                             color: Colors.blueAccent,
                                             fontSize: 15),
-                                        hintText: 'পপুরুষ',
+                                        hintText: 'পুরুষ',
                                         contentPadding: EdgeInsets.fromLTRB(
                                             10.0, 15.0, 10.0, 15.0),
                                         border: OutlineInputBorder(
@@ -527,6 +527,7 @@ class _EntryFormState extends State<EntryForm> {
                                         labelText: 'মহিলা',
                                         labelStyle: TextStyle(
                                             color: Colors.blueAccent,
+                                            fontFamily: 'Nikosh',
                                             fontSize: 15),
                                         hintText: 'মহিলা',
                                         contentPadding: EdgeInsets.fromLTRB(
