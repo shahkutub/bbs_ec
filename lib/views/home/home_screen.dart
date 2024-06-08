@@ -7,7 +7,10 @@ import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+
+import '../../helper/location_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    LocationHelper.handleLocationPermission();
     Get.find<DataController>().getDataCount();
   }
 
@@ -95,8 +99,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   btnHeight: btnHeight,
                   isIPad: Global.isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
-                  onTap: () {
-                    Get.to(() => const EntryForm());
+                  onTap: () async {
+                    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                    if (!serviceEnabled) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                         CommonMethods.snacbarMsg('জিপিএস সক্রিয় করুন'));
+                     // Geolocator.openLocationSettings();
+                    }else{
+                      Get.to(() => const EntryForm());
+                    }
+
                   },
                 )
                 /*Container(

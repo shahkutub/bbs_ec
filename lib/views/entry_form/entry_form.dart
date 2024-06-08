@@ -1,7 +1,9 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
+import 'package:bbs_ec/helper/location_helper.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -39,11 +41,14 @@ class _EntryFormState extends State<EntryForm> {
 
   int male = 0;
   int female = 0;
-
+  String? _currentAddress;
+  Position? _currentPosition;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    getLocation();
     addListData();
     // maleEditController.text = male.toString();
     // femaleEditController.text = female.toString();
@@ -702,10 +707,10 @@ class _EntryFormState extends State<EntryForm> {
   }
 
   void addListData() async {
-    print('year' + yearList.length.toString());
+    //print('year' + yearList.length.toString());
     for (int k = 1999; k < 2024; k++) {
       int val = k + 1;
-      print('year' + yearList.length.toString());
+     // print('year' + yearList.length.toString());
       yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
@@ -739,6 +744,15 @@ class _EntryFormState extends State<EntryForm> {
       padding: EdgeInsets.all(15),
     );
   }
+
+  Future<void> getLocation() async {
+    _currentPosition = await LocationHelper.getCurrentPosition();
+    print(_currentPosition!.latitude.toString());
+    _currentAddress = await LocationHelper.getAddressFromLatLng(
+        _currentPosition!);
+    setState(() {});
+  }
+
 }
 
 class ItemData {
