@@ -807,10 +807,10 @@ class _EntryFormState extends State<EntryForm> {
   }
 
   void addListData() async {
-    print('year' + yearList.length.toString());
+   // print('year' + yearList.length.toString());
     for (int k = 1999; k < 2024; k++) {
       int val = k + 1;
-      print('year' + yearList.length.toString());
+     // print('year' + yearList.length.toString());
       yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
