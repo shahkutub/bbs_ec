@@ -1,3 +1,4 @@
+import 'package:bbs_ec/controllers/auth_controller.dart';
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/helper/common_method.dart';
@@ -6,6 +7,7 @@ import 'package:bbs_ec/views/entry_form/entry_form.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
+import 'package:bbs_ec/views/shared/profile_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -20,11 +22,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _controller = Get.find<DataController>();
+  int offline = 0;
+  int total = 0;
   @override
   void initState() {
     super.initState();
     LocationHelper.handleLocationPermission();
     Get.find<DataController>().getDataCount();
+    getDataCount();
+  }
+
+  void getDataCount() async {
+    offline = await _controller.getOfflineDataCount();
+    total = await _controller.getTotalDataCount();
+    setState(() {});
   }
 
   @override
@@ -37,6 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
     // double addWidth = isIPad ? (btnWidth / 1.9) : (btnWidth / 1.7);
     // double reduceHeight = isIPad ? 50 : 0;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.find<AuthController>().setLoginFromSharedPref();
+                Get.dialog(const ProfileDialog());
+              },
+              icon: const Icon(Icons.person_outline))
+        ],
+      ),
       body: ScrollConfiguration(
         behavior: ListBehavior(),
         child: ListView(children: [
@@ -78,7 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  counter: '123',
+                  counter:
+                      CommonMethods.englishToBanglaNumberConverter('$total'),
                   title: 'সর্বমোট জমাকৃত\n উপাত্ত্ব',
                   isIPad: Global.isIPad,
                   onTap: () {},
@@ -86,12 +109,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomMenuButton(
                   btnWidth: btnWidth,
                   btnHeight: btnHeight,
-                  counter: CommonMethods.englishToBanglaNumberConverter(
-                      Get.find<DataController>().offlineDataCount.toString()),
+                  counter:
+                      CommonMethods.englishToBanglaNumberConverter('$offline'),
                   isIPad: Global.isIPad,
                   title: 'অফলাইনে জমাকৃত\n উপাত্ত্ব',
                   onTap: () {
-                    Get.to(() => const OfflineDataListScreen());
+                    Get.to(() => const OfflineDataListScreen())!
+                        .whenComplete(() => getDataCount());
+                    ;
                   },
                 ),
                 CustomMenuButton(
@@ -109,6 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Get.to(() => const EntryForm());
                     }
 
+                  onTap: () {
+                    Get.to(() => const EntryForm())!
+                        .whenComplete(() => getDataCount());
                   },
                 )
                 /*Container(

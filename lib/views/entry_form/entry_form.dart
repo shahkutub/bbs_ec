@@ -1,11 +1,15 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:bbs_ec/helper/location_helper.dart';
+import 'package:bbs_ec/database/info_data_table.dart';
+import 'package:bbs_ec/helper/common_method.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../data/model/global.dart';
 
 class EntryForm extends StatefulWidget {
   const EntryForm({super.key});
@@ -87,7 +91,10 @@ class _EntryFormState extends State<EntryForm> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('লিস্টিং ফরম'),
+        title: Text(
+          'নতুন উপাত্ত্ব সংযোজন ফরম',
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(50),
@@ -259,7 +266,9 @@ class _EntryFormState extends State<EntryForm> {
                                               width: width * 0.2,
                                               height: width / 8,
                                               child: Text(
-                                                country.name!,
+                                                CommonMethods
+                                                    .englishToBanglaNumberConverter(
+                                                        country.name!),
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 17),
@@ -642,8 +651,7 @@ class _EntryFormState extends State<EntryForm> {
                                 return;
                               }
 
-                              StoreRequestDataModel srdModel =
-                                  StoreRequestDataModel(
+                              InfoData srdModel = InfoData(
                                 institutionName: nameEditController.text,
                                 mobile: phoneEditController.text,
                                 phone: alterPhoneEditController.text,

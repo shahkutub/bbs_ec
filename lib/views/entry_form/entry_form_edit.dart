@@ -1,13 +1,17 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
+import 'package:bbs_ec/database/info_data_table.dart';
+import 'package:bbs_ec/helper/common_method.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../data/model/global.dart';
+
 class EntryFormEdit extends StatefulWidget {
-  final StoreRequestDataModel? data;
-   EntryFormEdit({super.key, this.data});
+  final InfoData? data;
+  EntryFormEdit({super.key, this.data});
 
   @override
   State<EntryFormEdit> createState() => _EntryFormState();
@@ -19,7 +23,6 @@ class _EntryFormState extends State<EntryFormEdit> {
   String dropdownValueOfficeType = '';
   String dropdownValueWonerType = '';
   String dropdownValueEconomicType = '';
-
 
   String officeTypehint = '';
   String ownerTypehint = '';
@@ -52,16 +55,15 @@ class _EntryFormState extends State<EntryFormEdit> {
     //Get.find<DataController>().getDataList();
     addListData();
 
-     nameEditController.text = widget.data!.institutionName.toString();
-     phoneEditController.text = widget.data!.phone.toString();
-     alterPhoneEditController.text = widget.data!.mobile.toString();
-     emailEditController.text = widget.data!.email.toString();
-     emailEditController.text = widget.data!.email.toString();
-
-     maleEditController.text = widget.data!.maleWorkerCount.toString();
-     femaleEditController.text = widget.data!.femaleWorkerCount.toString();
-     int total = widget.data!.maleWorkerCount! + widget.data!.femaleWorkerCount!;
-     totalEditController.text = total.toString();
+    nameEditController.text = widget.data!.institutionName.toString();
+    phoneEditController.text = widget.data!.phone.toString();
+    alterPhoneEditController.text = widget.data!.mobile.toString();
+    emailEditController.text = widget.data!.email.toString();
+    emailEditController.text = widget.data!.email.toString();
+    maleEditController.text = widget.data!.maleWorkerCount.toString();
+    femaleEditController.text = widget.data!.femaleWorkerCount.toString();
+    int total = widget.data!.maleWorkerCount! + widget.data!.femaleWorkerCount!;
+    totalEditController.text = total.toString();
 
     // femaleEditController.text = female.toString();
     maleEditController.addListener(() {
@@ -99,7 +101,10 @@ class _EntryFormState extends State<EntryFormEdit> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('লিস্টিং ফরম'),
+        title: Text(
+          'উপাত্ত্ব সংশোধন ফরম',
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(50),
@@ -241,7 +246,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(widget.data!.establishYear.toString(),style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        widget.data!.establishYear.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueYear.isNotEmpty
                                           ? dropdownValueYear
                                           : null,
@@ -271,7 +280,9 @@ class _EntryFormState extends State<EntryFormEdit> {
                                               width: width * 0.2,
                                               height: width / 8,
                                               child: Text(
-                                                country.name!,
+                                                CommonMethods
+                                                    .englishToBanglaNumberConverter(
+                                                        country.name!),
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 17),
@@ -302,7 +313,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(officeTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        officeTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueOfficeType.isNotEmpty
                                           ? dropdownValueOfficeType
                                           : null,
@@ -362,7 +377,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(ownerTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        ownerTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value: dropdownValueWonerType.isNotEmpty
                                           ? dropdownValueWonerType
                                           : null,
@@ -421,7 +440,11 @@ class _EntryFormState extends State<EntryFormEdit> {
                                   ),
                                   child: DropdownButtonHideUnderline(
                                     child: DropdownButton(
-                                      hint: Text(economicTypehint,style: const TextStyle(color: Colors.black),),
+                                      hint: Text(
+                                        economicTypehint,
+                                        style: const TextStyle(
+                                            color: Colors.black),
+                                      ),
                                       value:
                                           dropdownValueEconomicType.isNotEmpty
                                               ? dropdownValueEconomicType
@@ -581,122 +604,130 @@ class _EntryFormState extends State<EntryFormEdit> {
                         height: 40,
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: width / 2,
-                              height: width / 8,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  border: Border.all(color: Colors.green),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: const Text(
-                                'জমা দিন',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25),
+                      Visibility(
+                        visible: (widget.data!.server ?? false) == false,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: width / 2,
+                                height: width / 8,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    border: Border.all(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: const Text(
+                                  'জমা দিন',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
                               ),
+                              onTap: () async {
+                                final bool isValidEmail =
+                                    EmailValidator.validate(
+                                        emailEditController.text.toString());
+
+                                if (nameEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                                  return;
+                                } else if (phoneEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
+                                  return;
+                                } else if (emailEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
+                                  return;
+                                } else if (!isValidEmail) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
+                                  return;
+                                } else if (dropdownValueYear.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueOfficeType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueWonerType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'মালিকানার ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (dropdownValueEconomicType.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
+                                  return;
+                                } else if (maleEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'কর্মরত জনবল পুরুষ সংখ্যা দিন'));
+                                  return;
+                                } else if (femaleEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg(
+                                          'কর্মরত জনবল মহিলা সংখ্যা দিন'));
+                                  return;
+                                } else if (totalEditController.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
+                                  return;
+                                }
+
+                                InfoData srdModel = InfoData(
+                                  institutionName: nameEditController.text,
+                                  mobile: phoneEditController.text,
+                                  phone: alterPhoneEditController.text,
+                                  email: emailEditController.text,
+                                  establishYear: dropdownValueYear,
+                                  officeType: officeType,
+                                  ownershipType: ownerType,
+                                  economicActivityType: economicType,
+                                  maleWorkerCount:
+                                      int.parse(maleEditController.text),
+                                  femaleWorkerCount:
+                                      int.parse(femaleEditController.text),
+                                  status: 1,
+                                  dateTime: f.format(DateTime.now()),
+                                  server: false,
+                                );
+                                Get.find<DataController>().storeData(srdModel);
+                              },
+                              // onTap: (){
+                              //   final bool isValidEmail = false;
+                              //   //final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
+                              //
+                              //
+                              //   if(nameEditController.text.isEmpty){
+                              //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
+                              //   }else if(emailEditController.text.isEmpty){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Input email address",
+                              //     // );
+                              //
+                              //   }else if(!isValidEmail){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Invalid email address",
+                              //     // );
+                              //   }else if(phoneEditController.text.isEmpty){
+                              //     // ToastComponent.showDialog(
+                              //     //   "Input mobile number",
+                              //     // );
+                              //
+                              //   }
+                              // },
                             ),
-                            onTap: () async {
-                              final bool isValidEmail = EmailValidator.validate(
-                                  emailEditController.text.toString());
-
-                              if (nameEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                                return;
-                              } else if (phoneEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'প্রতিষ্ঠানের ফোন/মোবাইল (১) দিন'));
-                                return;
-                              } else if (emailEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের ইমেইল দিন'));
-                                return;
-                              } else if (!isValidEmail) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('প্রতিষ্ঠানের বৈধ ইমেইল দিন'));
-                                return;
-                              } else if (dropdownValueYear.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'প্রতিষ্ঠান প্রতিষ্ঠার বছর নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueOfficeType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('অফিসের ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueWonerType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('মালিকানার ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (dropdownValueEconomicType.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg(
-                                        'অর্থনৈতিক কর্মকান্ডের ধরণ নির্বাচন করুন'));
-                                return;
-                              } else if (maleEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('কর্মরত জনবল পুরুষ সংখ্যা দিন'));
-                                return;
-                              } else if (femaleEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('কর্মরত জনবল মহিলা সংখ্যা দিন'));
-                                return;
-                              } else if (totalEditController.text.isEmpty) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    snacbarMsg('মোট কর্মরত জনবল সংখ্যা দিন'));
-                                return;
-                              }
-
-                              StoreRequestDataModel srdModel =
-                                  StoreRequestDataModel(
-                                institutionName: nameEditController.text,
-                                mobile: phoneEditController.text,
-                                phone: alterPhoneEditController.text,
-                                email: emailEditController.text,
-                                establishYear: dropdownValueYear,
-                                officeType: officeType,
-                                ownershipType: ownerType,
-                                economicActivityType: economicType,
-                                maleWorkerCount: int.parse(maleEditController.text),
-                                femaleWorkerCount: int.parse(femaleEditController.text),
-                                status: 1,
-                                dateTime: f.format(DateTime.now()),
-                                server: false,
-                              );
-                              Get.find<DataController>().storeData(srdModel);
-                            },
-                            // onTap: (){
-                            //   final bool isValidEmail = false;
-                            //   //final bool isValidEmail = EmailValidator.validate(emailEditController.text.toString());
-                            //
-                            //
-                            //   if(nameEditController.text.isEmpty){
-                            //     ScaffoldMessenger.of(context).showSnackBar(snacbarMsg('প্রতিষ্ঠানের নাম দিন'));
-                            //   }else if(emailEditController.text.isEmpty){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Input email address",
-                            //     // );
-                            //
-                            //   }else if(!isValidEmail){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Invalid email address",
-                            //     // );
-                            //   }else if(phoneEditController.text.isEmpty){
-                            //     // ToastComponent.showDialog(
-                            //     //   "Input mobile number",
-                            //     // );
-                            //
-                            //   }
-                            // },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 40,
@@ -741,21 +772,21 @@ class _EntryFormState extends State<EntryFormEdit> {
 
     dropdownValueYear = widget.data!.establishYear.toString();
     officeTypeList.forEach((element) {
-      if(element.id == widget.data!.officeType){
+      if (element.id == widget.data!.officeType) {
         officeTypehint = element.name!;
         dropdownValueOfficeType = element.name!;
       }
     });
 
     wonerTypeList.forEach((element) {
-      if(element.id == widget.data!.ownershipType){
+      if (element.id == widget.data!.ownershipType) {
         ownerTypehint = element.name!;
         dropdownValueWonerType = element.name!;
       }
     });
 
     economicTypeList.forEach((element) {
-      if(element.id == widget.data!.economicActivityType){
+      if (element.id == widget.data!.economicActivityType) {
         economicTypehint = element.name!;
         dropdownValueEconomicType = element.name!;
       }

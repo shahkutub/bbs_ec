@@ -1,43 +1,68 @@
-import 'package:bbs_ec/data/model/store_request_data_model.dart';
+import 'package:bbs_ec/controllers/internet_controller.dart';
 import 'package:bbs_ec/data/repo/data_repo.dart';
+import 'package:bbs_ec/database/database_helper.dart';
+import 'package:bbs_ec/database/info_data_table.dart';
+import 'package:bbs_ec/views/login/login_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DataController extends GetxController implements GetxService {
   DataRepo dataRepo;
   DataController({required this.dataRepo});
 
-  List<StoreRequestDataModel> _dataList = [];
-  List<StoreRequestDataModel> get dataList => _dataList;
+  List<InfoData> _dataList = [];
+  List<InfoData> get dataList => _dataList;
 
-  int _offlineDataCount = 0;
-  int get offlineDataCount => _offlineDataCount;
-
-  void storeData(StoreRequestDataModel srdm) async {
-    final result = await dataRepo.storeDataToLocalServer(srdm);
+  void storeData(InfoData srdm) async {
+    final result = await dataRepo.storeInfoDataToDB(srdm);
     if (result) {
-      Response serverResult = await dataRepo.storeDataToServer(srdm);
-      if (serverResult.statusCode == 200) {
-        if (serverResult.body['status'] == true) {
-          srdm.server = true;
-          srdm.id = serverResult.body['data']['id'];
-          await dataRepo.storeDataToLocalServer(srdm);
-          update();
-          Get.back();
-        }
+      if (Get.find<InternetController>().connectedToNet) {
+        storeInfoData(
+          srdm,
+          () {},
+        );
+      }
+      Get.back();
+    }
+  }
+
+  void storeInfoData(InfoData data, VoidCallback onComplete) async {
+    Response serverResult = await dataRepo.storeDataToServer(data);
+    if (serverResult.statusCode == 200) {
+      if (serverResult.body['status'] == true) {
+        InfoData infoData = InfoData.fromJson(serverResult.body['data']);
+        await dataRepo.updateServerStatusInDB(
+            true, infoData.mobile!, infoData.email!);
+        update();
+        onComplete();
+      } else if (serverResult.body['code'] == 401) {
+        Get.offAll(() => const SignInScreen());
       }
     }
   }
 
-  void getDataList() {
-    StoreLocalData storeLocalData = dataRepo.getDataFromLocalServer();
-    _dataList = storeLocalData.data ?? [];
+  void syncInfoData() async {
+    for (InfoData data in _dataList) {
+      if ((data.server ?? false) == false) {
+        storeInfoData(data, () {
+          getInfoDataList();
+        });
+      }
+    }
+  }
+
+  void getInfoDataList() async {
+    _dataList = await DatabaseHelper.instance.getInfoDataList();
     update();
   }
 
-  void getDataCount() {
-    StoreLocalData storeLocalData = dataRepo.getDataFromLocalServer();
-    _dataList = storeLocalData.data ?? [];
-    _offlineDataCount = _dataList.length;
-    update();
+  Future<int> getTotalDataCount() async {
+    int totalDataCount = await dataRepo.getTotalDataCount();
+    return totalDataCount;
+  }
+
+  Future<int> getOfflineDataCount() async {
+    int offlineDataCount = await dataRepo.getOfflineDataCount();
+    return offlineDataCount;
   }
 }

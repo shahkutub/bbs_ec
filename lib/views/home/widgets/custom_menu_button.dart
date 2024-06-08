@@ -70,7 +70,7 @@ class CustomMenuButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         fontFamily: 'Nikosh',
-                        fontSize: (isIPad ?? false) ? 32 : 18,
+                        fontSize: (isIPad ?? false) ? 27 : 18,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).primaryColor),
                     textAlign: TextAlign.center,

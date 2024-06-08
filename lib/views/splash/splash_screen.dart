@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jumping_dot/jumping_dot.dart';
 import '../../controllers/auth_controller.dart';
+import '../../database/database_helper.dart';
 import '../login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,18 +14,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  DatabaseHelper databaseHelper = DatabaseHelper.instance;
   @override
   void initState() {
-    // databaseHelper.database;
+    databaseHelper.database;
     Future.delayed(const Duration(seconds: 5), () async {
-        if (Get.find<AuthController>().isLoggedIn) {
-          // Get.find<AuthController>().setUserFromSharedPref();
-
-          Get.offAll(
-              () => const HomeScreen());
-        } else {
-          Get.offAll(() => const SignInScreen());
-        }
+      if (Get.find<AuthController>().isLoggedIn) {
+        Get.offAll(() => const HomeScreen());
+      } else {
+        Get.offAll(() => const SignInScreen());
+      }
     });
 
     super.initState();
@@ -68,21 +67,21 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   const Text(
                     'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   const Text(
                     'বাংলাদেশ পরিসংখ্যান ব্যুরো',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 6,
                   ),
                   const Text(
-                    'অর্থনৈতিক শুমারি ২০২৩ প্রকল্প',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    'অর্থনৈতিক শুমারি ২০২৪ প্রকল্প',
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 30,

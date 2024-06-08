@@ -1,5 +1,6 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/global.dart';
+import 'package:bbs_ec/helper/common_method.dart';
 import 'package:bbs_ec/views/entry_form/entry_form_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<DataController>().getDataList();
+    Get.find<DataController>().getInfoDataList();
   }
 
   @override
@@ -34,8 +35,8 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
             itemBuilder: (context, index) {
               final data = controller.dataList[index];
               return InkWell(
-                onTap: (){
-                  Get.to(() =>  EntryFormEdit(data:data));
+                onTap: () {
+                  Get.to(() => EntryFormEdit(data: data));
                 },
                 child: Card(
                   margin: const EdgeInsets.all(10),
@@ -48,8 +49,9 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
                           color: Theme.of(context).primaryColor),
                     ),
                     subtitle: Text(
-                      '      ${data.dateTime ?? ''}',
-                      style: TextStyle(fontSize: (Global.isIPad ? 22 : 14)),
+                      CommonMethods.englishToBanglaNumberConverter(
+                          '      ${data.dateTime ?? ''}'),
+                      style: TextStyle(fontSize: (Global.isIPad ? 26 : 14)),
                     ),
                     trailing: Visibility(
                       visible: data.server ?? false,
@@ -64,6 +66,24 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
             },
           );
         },
+      ),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 30),
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            Get.find<DataController>().syncInfoData();
+          },
+          backgroundColor: Theme.of(context).primaryColor,
+          label: const Text(
+            "সিঙ্ক করুন",
+            style: TextStyle(
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          icon: const Icon(
+            Icons.refresh,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
