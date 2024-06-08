@@ -13,6 +13,12 @@ class DataController extends GetxController implements GetxService {
   List<InfoData> _dataList = [];
   List<InfoData> get dataList => _dataList;
 
+  int _total = 0;
+  int get total => _total;
+
+  int _offline = 0;
+  int get offline => _offline;
+
   void storeData(InfoData srdm) async {
     final result = await dataRepo.storeInfoDataToDB(srdm);
     if (result) {
@@ -52,6 +58,8 @@ class DataController extends GetxController implements GetxService {
   }
 
   void getInfoDataList() async {
+    _total = await dataRepo.getTotalDataCount();
+    _offline = await dataRepo.getOfflineDataCount();
     _dataList = await DatabaseHelper.instance.getInfoDataList();
     update();
   }

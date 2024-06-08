@@ -130,6 +130,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                             }
                             return null;
                           },
+                          readOnly: widget.data!.server ?? true,
                           decoration: InputDecoration(
                             labelText: 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি)',
                             hintText: 'প্রতিষ্ঠানের নাম (বাংলা/ইংরেজি)',
@@ -158,6 +159,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                             }
                             return null;
                           },
+                          readOnly: widget.data!.server ?? true,
                           decoration: InputDecoration(
                             labelText: 'ফোন/মোবাইল (১)',
                             hintText: 'ফোন/মোবাইল (১)',
@@ -185,6 +187,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                             }
                             return null;
                           },
+                          readOnly: widget.data!.server ?? true,
                           decoration: InputDecoration(
                             labelText: 'মোবাইল (২)',
                             hintText: 'মোবাইল (২)',
@@ -213,6 +216,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                             }
                             return null;
                           },
+                          readOnly: widget.data!.server ?? true,
                           decoration: InputDecoration(
                             labelText: 'ইমেইল',
                             hintText: 'ইমেইল',
@@ -517,6 +521,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                                         }
                                         return null;
                                       },
+                                      readOnly: widget.data!.server ?? true,
                                       decoration: InputDecoration(
                                         labelText: 'পুরুষ',
                                         labelStyle: TextStyle(
@@ -547,6 +552,7 @@ class _EntryFormState extends State<EntryFormEdit> {
                                         }
                                         return null;
                                       },
+                                      readOnly: widget.data!.server ?? true,
                                       decoration: InputDecoration(
                                         labelText: 'মহিলা',
                                         labelStyle: TextStyle(

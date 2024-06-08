@@ -58,21 +58,21 @@ class _SignInState extends State<SignInScreen> {
               ),
               const Text(
                 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 5,
               ),
               const Text(
                 'বাংলাদেশ পরিসংখ্যান ব্যুরো',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 6,
               ),
               const Text(
-                'অর্থনৈতিক শুমারি ২০২৩ প্রকল্প',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                'অর্থনৈতিক শুমারি ২০২৪ প্রকল্প',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 32,
