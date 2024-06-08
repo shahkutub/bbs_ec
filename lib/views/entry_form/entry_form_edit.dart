@@ -2,8 +2,10 @@ import 'package:bbs_ec/controllers/data_controller.dart';
 import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:bbs_ec/helper/common_method.dart';
+import 'package:bbs_ec/helper/location_helper.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -38,6 +40,8 @@ class _EntryFormState extends State<EntryFormEdit> {
   var maleEditController = TextEditingController();
   var femaleEditController = TextEditingController();
   var totalEditController = TextEditingController();
+  var latEditController = TextEditingController();
+  var lonEditController = TextEditingController();
 
   List<ItemData> yearList = [];
   List<ItemData> officeTypeList = [];
@@ -47,12 +51,14 @@ class _EntryFormState extends State<EntryFormEdit> {
 
   int male = 0;
   int female = 0;
-
+  String? _currentAddress;
+  Position? _currentPosition;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     //Get.find<DataController>().getDataList();
+    getLocation();
     addListData();
 
     nameEditController.text = widget.data!.institutionName.toString();
@@ -85,6 +91,14 @@ class _EntryFormState extends State<EntryFormEdit> {
           : 0;
       totalEditController.text = (male + female).toString();
     });
+  }
+
+  Future<void> getLocation() async {
+    _currentPosition = await LocationHelper.getCurrentPosition();
+    latEditController.text = _currentPosition!.latitude.toString();
+    lonEditController.text = _currentPosition!.longitude.toString();
+
+
   }
 
   @override
@@ -596,6 +610,96 @@ class _EntryFormState extends State<EntryFormEdit> {
                                       keyboardType: TextInputType.number,
                                     ),
                                   ),
+                                ],
+                              ),
+                            ),
+                          )),
+
+                      //latlon
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                          width: width,
+                          //height: width/6,
+                          child: InputDecorator(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 15.0),
+                              labelText: 'জিপিএস অবস্থান',
+                              labelStyle: TextStyle(
+                                  color: Colors.blueAccent, fontSize: 20),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                            ),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: TextFormField(
+                                      controller: latEditController,
+                                      readOnly: true,
+                                      // onChanged: (text){
+                                      //
+                                      // },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'অক্ষাংশ';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'অক্ষাংশ',
+                                        labelStyle: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 15),
+                                        hintText: 'অক্ষাংশ',
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            10.0, 15.0, 10.0, 15.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                      //keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Flexible(
+                                    child: TextFormField(
+                                      readOnly: true,
+                                      controller: lonEditController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'দ্রাঘিমাংশ';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'দ্রাঘিমাংশ',
+                                        labelStyle: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 15),
+                                        hintText: 'দ্রাঘিমাংশ',
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            10.0, 15.0, 10.0, 15.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+
                                 ],
                               ),
                             ),

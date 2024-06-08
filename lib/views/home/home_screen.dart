@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     LocationHelper.handleLocationPermission();
-    Get.find<DataController>().getDataCount();
+    //Get.find<DataController>().getDataCount();
     getDataCount();
   }
 
@@ -125,19 +125,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   isIPad: Global.isIPad,
                   title: 'নতুন উপাত্ত্ব\nসংযোজন',
                   onTap: () async {
-                    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                    bool serviceEnabled = await Geolocator
+                        .isLocationServiceEnabled();
                     if (!serviceEnabled) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                         CommonMethods.snacbarMsg('জিপিএস সক্রিয় করুন'));
-                     // Geolocator.openLocationSettings();
-                    }else{
-                      Get.to(() => const EntryForm());
+                          CommonMethods.snacbarMsg('জিপিএস সক্রিয় করুন'));
+                      // Geolocator.openLocationSettings();
+                    } else {
+                      //Get.to(() => const EntryForm());
+                      Get.to(() => const EntryForm())!
+                          .whenComplete(() => getDataCount());
                     }
+                  }
 
-                  onTap: () {
-                    Get.to(() => const EntryForm())!
-                        .whenComplete(() => getDataCount());
-                  },
                 )
                 /*Container(
                   margin: const EdgeInsets.only(left: 8, right: 8),

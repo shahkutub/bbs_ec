@@ -36,6 +36,8 @@ class _EntryFormState extends State<EntryForm> {
   var maleEditController = TextEditingController();
   var femaleEditController = TextEditingController();
   var totalEditController = TextEditingController();
+  var latEditController = TextEditingController();
+  var lonEditController = TextEditingController();
 
   List<ItemData> yearList = [];
   List<ItemData> officeTypeList = [];
@@ -574,10 +576,99 @@ class _EntryFormState extends State<EntryForm> {
                               ),
                             ),
                           )),
+
+                      //latlon
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                          width: width,
+                          //height: width/6,
+                          child: InputDecorator(
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 15.0),
+                              labelText: 'জিপিএস অবস্থান',
+                              labelStyle: TextStyle(
+                                  color: Colors.blueAccent, fontSize: 20),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                            ),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: TextFormField(
+                                      controller: latEditController,
+                                      readOnly: true,
+                                      // onChanged: (text){
+                                      //
+                                      // },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'অক্ষাংশ';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'অক্ষাংশ',
+                                        labelStyle: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 15),
+                                        hintText: 'অক্ষাংশ',
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            10.0, 15.0, 10.0, 15.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                      //keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Flexible(
+                                    child: TextFormField(
+                                      readOnly: true,
+                                      controller: lonEditController,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'দ্রাঘিমাংশ';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        labelText: 'দ্রাঘিমাংশ',
+                                        labelStyle: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 15),
+                                        hintText: 'দ্রাঘিমাংশ',
+                                        contentPadding: EdgeInsets.fromLTRB(
+                                            10.0, 15.0, 10.0, 15.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                      ),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          )),
                       SizedBox(
                         height: 40,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -715,10 +806,10 @@ class _EntryFormState extends State<EntryForm> {
   }
 
   void addListData() async {
-    //print('year' + yearList.length.toString());
+    print('year' + yearList.length.toString());
     for (int k = 1999; k < 2024; k++) {
       int val = k + 1;
-     // print('year' + yearList.length.toString());
+      print('year' + yearList.length.toString());
       yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
@@ -755,12 +846,11 @@ class _EntryFormState extends State<EntryForm> {
 
   Future<void> getLocation() async {
     _currentPosition = await LocationHelper.getCurrentPosition();
-    print(_currentPosition!.latitude.toString());
-    _currentAddress = await LocationHelper.getAddressFromLatLng(
-        _currentPosition!);
-    setState(() {});
-  }
+    latEditController.text = _currentPosition!.latitude.toString();
+    lonEditController.text = _currentPosition!.longitude.toString();
 
+
+  }
 }
 
 class ItemData {
