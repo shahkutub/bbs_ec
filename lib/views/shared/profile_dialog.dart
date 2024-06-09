@@ -76,25 +76,39 @@ class _ProfileDialogState extends State<ProfileDialog>
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'জোন নং', value: user.data.zone.zoneName),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(
-                        title: 'অফিস', value: user.data.zone.office.officeName),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(
-                        title: 'বিভাগ', value: user.data.zone.division.name),
+                        title: 'Login ID', value: user.data.id.toString()),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
                         title: 'জেলা', value: user.data.zone.district.name),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: Dimensions.PADDING_SIZE_SMALL),
+                    child: InfoWidget(
+                        title: 'জোন নং', value: user.data.zone.zoneName),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: Dimensions.PADDING_SIZE_SMALL),
+                    child: InfoWidget(
+                        title: 'City Coorparation',
+                        value: user.data.zone.cityCorporation.name),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: Dimensions.PADDING_SIZE_SMALL),
+                    child: InfoWidget(
+                        title: 'Thana', value: user.data.zone.upazila),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: Dimensions.PADDING_SIZE_SMALL),
+                    child: InfoWidget(
+                        title: 'Ward No',
+                        value: user.data.zone.cityWard.wordNo),
                   ),
                   const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                   TextButton(
