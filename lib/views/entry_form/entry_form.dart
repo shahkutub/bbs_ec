@@ -580,7 +580,7 @@ class _EntryFormState extends State<EntryForm> {
 
                       //latlon
                       SizedBox(
-                        height: 20,
+                        height: 40,
                       ),
                       Container(
                           width: width,
