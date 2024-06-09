@@ -5,18 +5,18 @@ import 'package:bbs_ec/views/entry_form/entry_form_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OfflineDataListScreen extends StatefulWidget {
-  const OfflineDataListScreen({super.key});
+class TotalDataListScreen extends StatefulWidget {
+  const TotalDataListScreen({super.key});
 
   @override
-  State<OfflineDataListScreen> createState() => _OfflineDataListScreenState();
+  State<TotalDataListScreen> createState() => _TotalDataListScreenState();
 }
 
-class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
+class _TotalDataListScreenState extends State<TotalDataListScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<DataController>().getOfflineInfoDataList();
+    Get.find<DataController>().getInfoDataList();
   }
 
   @override
@@ -54,9 +54,9 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
                   )),
               Expanded(
                 child: ListView.builder(
-                  itemCount: controller.offlineDataList.length,
+                  itemCount: controller.dataList.length,
                   itemBuilder: (context, index) {
-                    final data = controller.offlineDataList[index];
+                    final data = controller.dataList[index];
                     return InkWell(
                       onTap: () {
                         Get.to(() => EntryFormEdit(data: data));
@@ -94,7 +94,7 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
           );
         },
       ),
-      floatingActionButton: Container(
+      /*floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 30),
         child: FloatingActionButton.extended(
           onPressed: () {
@@ -111,7 +111,7 @@ class _OfflineDataListScreenState extends State<OfflineDataListScreen> {
             color: Colors.white,
           ),
         ),
-      ),
+      ),*/
     );
   }
 }

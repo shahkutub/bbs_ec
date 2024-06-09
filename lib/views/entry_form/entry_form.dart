@@ -42,7 +42,7 @@ class _EntryFormState extends State<EntryForm> {
   List<ItemData> officeTypeList = [];
   List<ItemData> wonerTypeList = [];
   List<ItemData> economicTypeList = [];
-  final f = DateFormat('dd-MM-yyyy');
+  final f = DateFormat('dd-MM-yyyy HH:mm');
 
   int male = 0;
   int female = 0;

@@ -46,7 +46,7 @@ class _EntryFormState extends State<EntryFormEdit> {
   List<ItemData> officeTypeList = [];
   List<ItemData> wonerTypeList = [];
   List<ItemData> economicTypeList = [];
-  final f = DateFormat('dd-MM-yyyy');
+  final f = DateFormat('dd-MM-yyyy HH:mm');
 
   int male = 0;
   int female = 0;
@@ -792,10 +792,12 @@ class _EntryFormState extends State<EntryFormEdit> {
                                 }
 
                                 InfoData srdModel = InfoData(
-                                  institutionName: nameEditController.text,
-                                  mobile: phoneEditController.text,
-                                  phone: alterPhoneEditController.text,
-                                  email: emailEditController.text,
+                                  id: widget.data!.id,
+                                  institutionName:
+                                      nameEditController.text.trim(),
+                                  mobile: phoneEditController.text.trim(),
+                                  phone: alterPhoneEditController.text.trim(),
+                                  email: emailEditController.text.trim(),
                                   establishYear: dropdownValueYear,
                                   officeType: officeType,
                                   ownershipType: ownerType,

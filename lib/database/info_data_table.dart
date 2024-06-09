@@ -95,7 +95,7 @@ class InfoData {
         longitude: longitude ?? this.longitude,
       );
   static InfoData fromJson(Map<String, dynamic> json) => InfoData(
-        id: json['id'],
+        id: json[InfoDataFields.id],
         institutionName: json[InfoDataFields.institution_name],
         mobile: json[InfoDataFields.mobile],
         phone: json[InfoDataFields.phone],

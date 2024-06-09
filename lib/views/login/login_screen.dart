@@ -1,3 +1,4 @@
+import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/views/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,6 @@ class _SignInState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
       body: SingleChildScrollView(
@@ -50,8 +50,8 @@ class _SignInState extends State<SignInScreen> {
               ),
               Image.asset(
                 'assets/bdseal.png',
-                height: 150,
-                width: 150,
+                height: Global.isIPad ? 150 : 120,
+                width: Global.isIPad ? 150 : 120,
               ),
               const SizedBox(
                 height: 20,
@@ -162,8 +162,8 @@ class _SignInState extends State<SignInScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const SizedBox(
-                height: 160,
+              SizedBox(
+                height: (Global.isIPad) ? 160 : 130,
               ),
               const Text.rich(TextSpan(text: 'Developed by ', children: [
                 TextSpan(

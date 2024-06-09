@@ -8,6 +8,7 @@ import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
 import 'package:bbs_ec/views/shared/profile_dialog.dart';
+import 'package:bbs_ec/views/total_data/total_data_list.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -104,7 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       CommonMethods.englishToBanglaNumberConverter('$total'),
                   title: 'সর্বমোট জমাকৃত\n উপাত্ত্ব',
                   isIPad: Global.isIPad,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => const TotalDataListScreen())!
+                        .whenComplete(() => getDataCount());
+                  },
                 ),
                 CustomMenuButton(
                   btnWidth: btnWidth,
@@ -116,29 +120,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () {
                     Get.to(() => const OfflineDataListScreen())!
                         .whenComplete(() => getDataCount());
-                    ;
                   },
                 ),
                 CustomMenuButton(
-                  btnWidth: btnWidth,
-                  btnHeight: btnHeight,
-                  isIPad: Global.isIPad,
-                  title: 'নতুন উপাত্ত্ব\nসংযোজন',
-                  onTap: () async {
-                    bool serviceEnabled = await Geolocator
-                        .isLocationServiceEnabled();
-                    if (!serviceEnabled) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          CommonMethods.snacbarMsg('জিপিএস সক্রিয় করুন'));
-                      // Geolocator.openLocationSettings();
-                    } else {
-                      //Get.to(() => const EntryForm());
-                      Get.to(() => const EntryForm())!
-                          .whenComplete(() => getDataCount());
-                    }
-                  }
-
-                )
+                    btnWidth: btnWidth,
+                    btnHeight: btnHeight,
+                    isIPad: Global.isIPad,
+                    title: 'নতুন উপাত্ত্ব\nসংযোজন',
+                    onTap: () async {
+                      bool serviceEnabled =
+                          await Geolocator.isLocationServiceEnabled();
+                      if (!serviceEnabled) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            CommonMethods.snacbarMsg('জিপিএস সক্রিয় করুন'));
+                        // Geolocator.openLocationSettings();
+                      } else {
+                        //Get.to(() => const EntryForm());
+                        Get.to(() => const EntryForm())!
+                            .whenComplete(() => getDataCount());
+                      }
+                    })
                 /*Container(
                   margin: const EdgeInsets.only(left: 8, right: 8),
                   width: btnWidth,

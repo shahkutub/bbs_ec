@@ -1,3 +1,4 @@
+import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     databaseHelper.database;
+
+    // setState(() {
+    //   double width = MediaQuery.of(context).size.width;
+    //   Global.isIPad = width > 430;
+    // });
     Future.delayed(const Duration(seconds: 5), () async {
       if (Get.find<AuthController>().isLoggedIn) {
         Get.offAll(() => const HomeScreen());
@@ -65,23 +71,29 @@ class _SplashScreenState extends State<SplashScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                  Text(
                     'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: Global.isIPad ? 22 : 16,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
+                  Text(
                     'বাংলাদেশ পরিসংখ্যান ব্যুরো',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: Global.isIPad ? 32 : 26,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 6,
                   ),
-                  const Text(
+                  Text(
                     'অর্থনৈতিক শুমারি ২০২৪ প্রকল্প',
-                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: Global.isIPad ? 40 : 34,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 30,

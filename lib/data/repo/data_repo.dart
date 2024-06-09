@@ -29,6 +29,10 @@ class DataRepo {
     return await DatabaseHelper.instance.getInfoDataList();
   }
 
+  Future<List<InfoData>> readOfflineInfoDataList() async {
+    return await DatabaseHelper.instance.getOfflineInfoDataList();
+  }
+
   Future<int> getOfflineDataCount() async {
     return await DatabaseHelper.instance.getOfflineDataCount();
   }

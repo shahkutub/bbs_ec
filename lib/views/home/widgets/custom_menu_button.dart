@@ -56,7 +56,7 @@ class CustomMenuButton extends StatelessWidget {
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.w600,
-                          fontSize: (isIPad ?? false) ? 32 : 16),
+                          fontSize: (isIPad ?? false) ? 32 : 17),
                     ),
                   ),
                 ),
@@ -70,8 +70,8 @@ class CustomMenuButton extends StatelessWidget {
                     title,
                     style: TextStyle(
                         fontFamily: 'Nikosh',
-                        fontSize: (isIPad ?? false) ? 27 : 18,
-                        fontWeight: FontWeight.w600,
+                        fontSize: (isIPad ?? false) ? 27 : 16,
+                        fontWeight: FontWeight.w700,
                         color: Theme.of(context).primaryColor),
                     textAlign: TextAlign.center,
                   ),

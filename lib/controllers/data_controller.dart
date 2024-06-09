@@ -13,6 +13,9 @@ class DataController extends GetxController implements GetxService {
   List<InfoData> _dataList = [];
   List<InfoData> get dataList => _dataList;
 
+  List<InfoData> _offlineDataList = [];
+  List<InfoData> get offlineDataList => _offlineDataList;
+
   int _total = 0;
   int get total => _total;
 
@@ -48,10 +51,10 @@ class DataController extends GetxController implements GetxService {
   }
 
   void syncInfoData() async {
-    for (InfoData data in _dataList) {
+    for (InfoData data in _offlineDataList) {
       if ((data.server ?? false) == false) {
         storeInfoData(data, () {
-          getInfoDataList();
+          getOfflineInfoDataList();
         });
       }
     }
@@ -61,6 +64,13 @@ class DataController extends GetxController implements GetxService {
     _total = await dataRepo.getTotalDataCount();
     _offline = await dataRepo.getOfflineDataCount();
     _dataList = await DatabaseHelper.instance.getInfoDataList();
+    update();
+  }
+
+  void getOfflineInfoDataList() async {
+    _total = await dataRepo.getTotalDataCount();
+    _offline = await dataRepo.getOfflineDataCount();
+    _offlineDataList = await DatabaseHelper.instance.getOfflineInfoDataList();
     update();
   }
 

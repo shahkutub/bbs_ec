@@ -1,4 +1,5 @@
 import 'package:bbs_ec/controllers/auth_controller.dart';
+import 'package:bbs_ec/data/model/global.dart';
 import 'package:bbs_ec/data/model/response/model/login_model.dart';
 import 'package:bbs_ec/helper/common_method.dart';
 import 'package:bbs_ec/views/login/login_screen.dart';
@@ -113,7 +114,8 @@ class _ProfileDialogState extends State<ProfileDialog>
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
                         title: 'ওয়ার্ড নং',
-                        value: user.data.zone.cityWard.wordNo),
+                        value: CommonMethods.englishToBanglaNumberConverter(
+                            user.data.zone.cityWard.wordNo)),
                   ),
                   const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                   TextButton(
@@ -145,13 +147,13 @@ class InfoWidget extends StatelessWidget {
       children: [
         Text("$title:",
             style: TextStyle(
-                fontSize: 22,
+                fontSize: Global.isIPad ? 22 : 18,
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w500)),
         Text(
           value,
           style: TextStyle(
-              fontSize: 20,
+              fontSize: Global.isIPad ? 20 : 16,
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w600),
         )

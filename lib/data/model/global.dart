@@ -1,3 +1,3 @@
 class Global {
-  static bool isIPad = true;
+  static bool isIPad = false;
 }

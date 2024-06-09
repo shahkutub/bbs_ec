@@ -90,8 +90,10 @@ class DatabaseHelper {
     List<Map<String, dynamic>> result = await db.query(tableInfoData,
         where: '${InfoDataFields.mobile} = ? AND ${InfoDataFields.email} = ?',
         whereArgs: [mobile, email]);
+    print(result);
     if (result.isNotEmpty) {
       InfoData data = InfoData.fromJson(result.first);
+      // print(data.toLocalJson());
       await db.rawQuery(
           'UPDATE $tableInfoData SET ${InfoDataFields.server}=${server ? 1 : 0} WHERE ${InfoDataFields.id}=${data.id}');
       debugPrint('Info Data server updated');
@@ -108,6 +110,18 @@ class DatabaseHelper {
     List<Map<String, dynamic>> result = await db.query(
       tableInfoData,
     );
+    if (result.isNotEmpty) {
+      infoDataList = result.map((json) => InfoData.fromJson(json)).toList();
+    }
+    return infoDataList;
+  }
+
+  Future<List<InfoData>> getOfflineInfoDataList() async {
+    final db = await instance.database;
+    List<InfoData> infoDataList = [];
+
+    List<Map<String, dynamic>> result =
+        await db.query(tableInfoData, where: '${InfoDataFields.server} = 0');
     if (result.isNotEmpty) {
       infoDataList = result.map((json) => InfoData.fromJson(json)).toList();
     }
