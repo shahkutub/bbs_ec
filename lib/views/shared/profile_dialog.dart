@@ -59,42 +59,42 @@ class _ProfileDialogState extends State<ProfileDialog>
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(title: 'Name', value: user.data.name),
+                    child: InfoWidget(title: 'নাম', value: user.data.name),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(title: 'E-mail', value: user.data.email),
+                    child: InfoWidget(title: 'ই-মেইল', value: user.data.email),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(title: 'Mobile', value: user.data.mobile),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(
-                        title: 'Zone', value: user.data.zone.zoneName),
+                    child:
+                        InfoWidget(title: 'মোবাইল নং', value: user.data.mobile),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'Office',
-                        value: user.data.zone.office.officeName),
+                        title: 'জোন নং', value: user.data.zone.zoneName),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'Division', value: user.data.zone.division.name),
+                        title: 'অফিস', value: user.data.zone.office.officeName),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'District', value: user.data.zone.district.name),
+                        title: 'বিভাগ', value: user.data.zone.division.name),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: Dimensions.PADDING_SIZE_SMALL),
+                    child: InfoWidget(
+                        title: 'জেলা', value: user.data.zone.district.name),
                   ),
                   const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                   TextButton(
@@ -102,7 +102,7 @@ class _ProfileDialogState extends State<ProfileDialog>
                         await Get.find<AuthController>().logout;
                         Get.offAll(() => const SignInScreen());
                       },
-                      child: Text('logout',
+                      child: Text('লগআউট',
                           style: TextStyle(
                               fontSize: 20,
                               color: Theme.of(context).errorColor,
