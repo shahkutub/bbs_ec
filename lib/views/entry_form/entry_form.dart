@@ -98,7 +98,7 @@ class _EntryFormState extends State<EntryForm> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(50),
+        padding: EdgeInsets.all(Global.isIPad ? 50 : 20),
         child: Container(
           //margin: EdgeInsets.only(left: 15,right: 15),
           child: Column(
@@ -137,7 +137,7 @@ class _EntryFormState extends State<EntryForm> {
                           keyboardType: TextInputType.text,
                         ),
                       ),
-                      // SizedBox(height: 20,),
+                      SizedBox(height: Global.isIPad ? 0 : 20,),
                       Container(
                         width: width,
                         height: width / 6,
@@ -163,7 +163,7 @@ class _EntryFormState extends State<EntryForm> {
                           keyboardType: TextInputType.phone,
                         ),
                       ),
-                      // SizedBox(height: 20,),
+                      SizedBox(height: Global.isIPad ? 0 : 20,),
                       //phone alter
                       Container(
                         width: width,
@@ -192,7 +192,7 @@ class _EntryFormState extends State<EntryForm> {
                           keyboardType: TextInputType.phone,
                         ),
                       ),
-                      //SizedBox(height: 20,),
+                      SizedBox(height: Global.isIPad ? 0 : 20,),
                       Container(
                         width: width,
                         height: width / 6,
@@ -220,6 +220,7 @@ class _EntryFormState extends State<EntryForm> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
+                      SizedBox(height: Global.isIPad ? 0 : 25,),
                       yearList.length > 0
                           ? Container(
                               width: width,
@@ -281,7 +282,7 @@ class _EntryFormState extends State<EntryForm> {
                                   )))
                           : SizedBox(),
                       SizedBox(
-                        height: 20,
+                        height: 25,
                       ),
                       officeTypeList.length > 0
                           ? Container(
@@ -341,7 +342,7 @@ class _EntryFormState extends State<EntryForm> {
                           : SizedBox(),
 
                       SizedBox(
-                        height: 20,
+                        height: 25,
                       ),
                       wonerTypeList.length > 0
                           ? Container(
@@ -400,7 +401,7 @@ class _EntryFormState extends State<EntryForm> {
                                   )))
                           : SizedBox(),
                       SizedBox(
-                        height: 20,
+                        height: 25,
                       ),
                       economicTypeList.length > 0
                           ? Container(
@@ -460,7 +461,7 @@ class _EntryFormState extends State<EntryForm> {
                                   )))
                           : SizedBox(),
                       SizedBox(
-                        height: 20,
+                        height: Global.isIPad ? 20 : 25,
                       ),
                       Container(
                           width: width,
@@ -579,7 +580,7 @@ class _EntryFormState extends State<EntryForm> {
 
                       //latlon
                       SizedBox(
-                        height: 40,
+                        height: Global.isIPad ? 40 : 30,
                       ),
                       Container(
                           width: width,
