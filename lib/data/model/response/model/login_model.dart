@@ -141,21 +141,21 @@ class Zone {
     return Zone(
       id: json['id'],
       zoneName: json['zone_name'],
-      officeId: json['office_id'],
-      divisionId: json['division_id'],
-      districtId: json['district_id'],
-      cityCorporationId: json['city_corporation_id'],
+      officeId: int.parse(json['office_id']),
+      divisionId: int.parse(json['division_id']),
+      districtId: int.parse(json['district_id']),
+      cityCorporationId: int.parse(json['city_corporation_id']),
       upazilaId: json['upazila_id'],
       municipalId: json['municipal_id'],
       unionId: json['union_id'],
-      cityWardId: json['city_ward_id'],
+      cityWardId: int.parse(json['city_ward_id']),
       municipalWardId: json['municipal_ward_id'],
       village: json['village'],
       area: json['area'],
       latitude: json['latitude'],
       longitude: json['longitude'],
       listingNo: json['listing_no'],
-      status: json['status'],
+      status: int.parse(json['status']),
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       deletedAt: json['deleted_at'],
@@ -235,8 +235,8 @@ class Office {
       officeName: json['office_name'],
       officeNameEn: json['office_name_en'],
       location: json['location'],
-      divisionId: json['division_id'],
-      districtId: json['district_id'],
+      divisionId: int.parse(json['division_id']),
+      districtId: int.parse(json['district_id']),
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       deletedAt: json['deleted_at'],
@@ -297,7 +297,7 @@ class Division {
       updatedAt: json['updated_at'],
       latitudeDirection: json['latitude_direction'],
       longitudeDirection: json['longitude_direction'],
-      mapId: json['MapId'],
+      mapId: int.parse(json['MapId']),
     );
   }
 
@@ -352,8 +352,8 @@ class District {
   factory District.fromJson(Map<String, dynamic> json) {
     return District(
       id: json['id'],
-      divisionId: json['division_id'],
-      circleId: json['circle_id'],
+      divisionId: int.parse(json['division_id']),
+      circleId: int.parse(json['circle_id']),
       name: json['name'],
       nameBn: json['name_bn'],
       latitude: json['latitude'],
@@ -363,7 +363,7 @@ class District {
       updatedAt: json['updated_at'],
       latitudeDirection: json['latitude_direction'],
       longitudeDirection: json['longitude_direction'],
-      mapId: json['MapId'],
+      mapId: int.parse(json['MapId']),
     );
   }
 
@@ -416,7 +416,7 @@ class CityCorporation {
   factory CityCorporation.fromJson(Map<String, dynamic> json) {
     return CityCorporation(
       id: json['id'],
-      districtId: json['district_id'],
+      districtId: int.parse(json['district_id']),
       name: json['name'],
       nameBn: json['name_bn'],
       latitude: json['latitude'],
@@ -470,7 +470,7 @@ class CityWard {
   factory CityWard.fromJson(Map<String, dynamic> json) {
     return CityWard(
       id: json['id'],
-      cityCorporationId: json['city_corporation_id'],
+      cityCorporationId: int.parse(json['city_corporation_id']),
       wordNo: json['word_no'],
       latitude: json['latitude'],
       longitude: json['longitude'],
