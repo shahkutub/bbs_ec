@@ -1,5 +1,6 @@
 import 'package:bbs_ec/controllers/auth_controller.dart';
 import 'package:bbs_ec/data/model/response/model/login_model.dart';
+import 'package:bbs_ec/helper/common_method.dart';
 import 'package:bbs_ec/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,12 +60,16 @@ class _ProfileDialogState extends State<ProfileDialog>
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(title: 'নাম', value: user.data.name),
+                    child: InfoWidget(
+                        title: 'গণনাকারীর নাম', value: user.data.name),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
-                    child: InfoWidget(title: 'ই-মেইল', value: user.data.email),
+                    child: InfoWidget(
+                        title: 'গণনাকারী নম্বর',
+                        value: CommonMethods.englishToBanglaNumberConverter(
+                            user.data.enumeratorNo)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -76,7 +81,7 @@ class _ProfileDialogState extends State<ProfileDialog>
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'Login ID', value: user.data.id.toString()),
+                        title: 'লগইন আইডি', value: user.data.email.toString()),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -94,20 +99,20 @@ class _ProfileDialogState extends State<ProfileDialog>
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'City Coorparation',
+                        title: 'সিটি কর্পোরেশন',
                         value: user.data.zone.cityCorporation.name),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'Thana', value: user.data.zone.upazila),
+                        title: 'থানা', value: user.data.zone.upazila ?? ''),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: Dimensions.PADDING_SIZE_SMALL),
                     child: InfoWidget(
-                        title: 'Ward No',
+                        title: 'ওয়ার্ড নং',
                         value: user.data.zone.cityWard.wordNo),
                   ),
                   const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),

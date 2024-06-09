@@ -5,7 +5,8 @@ class AppConstants {
 
   // urls
   // test server
-  static const String BASE_URL = 'https://bbs-ec.nanoit.biz/api';
+  static const String BASE_URL =
+      'https://bbs-ec.codespecies.com/api'; //bbs-ec.nanoit.biz/api';
 
   static const String LOGIN_URI = '/auth/login';
   static const String STORE_URI = '/economic-cencus/store';

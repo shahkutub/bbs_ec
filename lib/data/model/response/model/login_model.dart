@@ -28,7 +28,8 @@ class Data {
   String name;
   String email;
   String mobile;
-  int zoneId;
+  String enumeratorNo;
+  String? zoneId;
   Zone zone;
   int expiresIn;
 
@@ -38,6 +39,7 @@ class Data {
     required this.name,
     required this.email,
     required this.mobile,
+    required this.enumeratorNo,
     required this.zoneId,
     required this.zone,
     required this.expiresIn,
@@ -50,6 +52,7 @@ class Data {
       name: json['name'],
       email: json['email'],
       mobile: json['mobile'],
+      enumeratorNo: json['enumerator_no'],
       zoneId: json['zone_id'],
       zone: Zone.fromJson(json['zone']),
       expiresIn: json['expires_in'],
@@ -63,6 +66,7 @@ class Data {
       'name': name,
       'email': email,
       'mobile': mobile,
+      'enumerator_no': enumeratorNo,
       'zone_id': zoneId,
       'zone': zone.toJson(),
       'expires_in': expiresIn,
@@ -90,12 +94,12 @@ class Zone {
   int status;
   String createdAt;
   String updatedAt;
-  dynamic deletedAt;
+  String? deletedAt;
   Office office;
   Division division;
   District district;
   CityCorporation cityCorporation;
-  dynamic upazila;
+  String? upazila;
   dynamic municipal;
   dynamic union;
   CityWard cityWard;

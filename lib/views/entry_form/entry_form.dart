@@ -1,5 +1,4 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
-import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:bbs_ec/helper/location_helper.dart';
 import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:bbs_ec/helper/common_method.dart';
@@ -598,7 +597,7 @@ class _EntryFormState extends State<EntryForm> {
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Flexible(
                                     child: TextFormField(
@@ -623,7 +622,7 @@ class _EntryFormState extends State<EntryForm> {
                                             10.0, 15.0, 10.0, 15.0),
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                                BorderRadius.circular(5.0)),
                                       ),
                                       style: TextStyle(
                                         fontSize: 15,
@@ -654,7 +653,7 @@ class _EntryFormState extends State<EntryForm> {
                                             10.0, 15.0, 10.0, 15.0),
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                                BorderRadius.circular(5.0)),
                                       ),
                                       style: TextStyle(
                                         fontSize: 15,
@@ -662,7 +661,6 @@ class _EntryFormState extends State<EntryForm> {
                                       keyboardType: TextInputType.number,
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),
@@ -807,10 +805,10 @@ class _EntryFormState extends State<EntryForm> {
   }
 
   void addListData() async {
-   // print('year' + yearList.length.toString());
+    // print('year' + yearList.length.toString());
     for (int k = 1999; k < 2024; k++) {
       int val = k + 1;
-     // print('year' + yearList.length.toString());
+      // print('year' + yearList.length.toString());
       yearList.add(ItemData(name: val.toString(), id: 0));
     }
     yearList = yearList.reversed.toList();
@@ -849,8 +847,6 @@ class _EntryFormState extends State<EntryForm> {
     _currentPosition = await LocationHelper.getCurrentPosition();
     latEditController.text = _currentPosition!.latitude.toString();
     lonEditController.text = _currentPosition!.longitude.toString();
-
-
   }
 }
 

@@ -1,5 +1,4 @@
 import 'package:bbs_ec/controllers/data_controller.dart';
-import 'package:bbs_ec/data/model/store_request_data_model.dart';
 import 'package:bbs_ec/database/info_data_table.dart';
 import 'package:bbs_ec/helper/common_method.dart';
 import 'package:bbs_ec/helper/location_helper.dart';
