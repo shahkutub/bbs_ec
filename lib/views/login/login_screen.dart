@@ -163,8 +163,14 @@ class _SignInState extends State<SignInScreen> {
                 height: 20,
               ),
               const SizedBox(
-                height: 60,
+                height: 160,
               ),
+              const Text.rich(TextSpan(text: 'Developed by ', children: [
+                TextSpan(
+                  text: 'NanoSoft',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ]))
             ],
           ),
         ),
