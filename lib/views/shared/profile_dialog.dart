@@ -126,7 +126,7 @@ class InfoWidget extends StatelessWidget {
       children: [
         Text("$title:",
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 22,
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w500)),
         Text(
