@@ -25,7 +25,7 @@ class _TotalDataListScreenState extends State<TotalDataListScreen> {
       appBar: AppBar(
         title: Text(
           'অফলাইন উপাত্ত্ব সমূহ',
-          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 24)),
         ),
       ),
       body: GetBuilder<DataController>(

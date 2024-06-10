@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:jumping_dot/jumping_dot.dart';
 import '../../controllers/auth_controller.dart';
 import '../../database/database_helper.dart';
+import '../../helper/common_method.dart';
 import '../login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,10 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     databaseHelper.database;
-
     // setState(() {
-    //   double width = MediaQuery.of(context).size.width;
-    //   Global.isIPad = width > 430;
+
     // });
     Future.delayed(const Duration(seconds: 5), () async {
       if (Get.find<AuthController>().isLoggedIn) {
@@ -38,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
+    Global.isIPad = width > 430;
     return Scaffold(
       body: SizedBox(
         width: width,

@@ -116,7 +116,7 @@ class _EntryFormState extends State<EntryFormEdit> {
           (widget.data!.server ?? false)
               ? 'উপাত্ত্ব প্রদর্শনী ফরম'
               : 'উপাত্ত্ব সংশোধন ফরম',
-          style: TextStyle(fontSize: (Global.isIPad ? 30 : 16)),
+          style: TextStyle(fontSize: (Global.isIPad ? 30 : 24)),
         ),
       ),
       body: SingleChildScrollView(
@@ -160,7 +160,9 @@ class _EntryFormState extends State<EntryFormEdit> {
                           keyboardType: TextInputType.text,
                         ),
                       ),
-                      SizedBox(height: Global.isIPad ? 0 : 20,),
+                      SizedBox(
+                        height: Global.isIPad ? 0 : 20,
+                      ),
                       Container(
                         width: width,
                         height: width / 6,
@@ -187,7 +189,9 @@ class _EntryFormState extends State<EntryFormEdit> {
                           keyboardType: TextInputType.phone,
                         ),
                       ),
-                      SizedBox(height: Global.isIPad ? 0 : 20,),
+                      SizedBox(
+                        height: Global.isIPad ? 0 : 20,
+                      ),
                       //phone alter
                       Container(
                         width: width,
@@ -217,7 +221,9 @@ class _EntryFormState extends State<EntryFormEdit> {
                           keyboardType: TextInputType.phone,
                         ),
                       ),
-                      SizedBox(height: Global.isIPad ? 0 : 20,),
+                      SizedBox(
+                        height: Global.isIPad ? 0 : 20,
+                      ),
                       Container(
                         width: width,
                         height: width / 6,
@@ -246,7 +252,9 @@ class _EntryFormState extends State<EntryFormEdit> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
-                      SizedBox(height: Global.isIPad ? 0 : 25,),
+                      SizedBox(
+                        height: Global.isIPad ? 0 : 25,
+                      ),
                       yearList.length > 0
                           ? Container(
                               width: width,

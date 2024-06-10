@@ -21,7 +21,7 @@ class AppConstants {
   static const String USER_PASSWORD = 'user_password';
   static const String USER_ID = 'user_id';
 
-  static const String ARRAY_DATA = 'array_store_data';
+  static const String FINGERPRINT_LOGIN = 'fingerprint';
 
   //text
   static const String NO_DATA = 'তথ্য পাওয়া যায়নি';

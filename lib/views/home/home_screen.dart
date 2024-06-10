@@ -7,6 +7,7 @@ import 'package:bbs_ec/views/entry_form/entry_form.dart';
 import 'package:bbs_ec/views/home/widgets/custom_header_text.dart';
 import 'package:bbs_ec/views/home/widgets/custom_menu_button.dart';
 import 'package:bbs_ec/views/offline_data/offline_data_list.dart';
+import 'package:bbs_ec/views/settings/finger_print_auth.dart';
 import 'package:bbs_ec/views/shared/profile_dialog.dart';
 import 'package:bbs_ec/views/total_data/total_data_list.dart';
 import 'package:flutter/material.dart';
@@ -51,13 +52,20 @@ class _HomeScreenState extends State<HomeScreen> {
     // double reduceHeight = isIPad ? 50 : 0;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.to(() => const FingerprintAuth());
+          },
+          icon: const Icon(Icons.settings),
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                Get.find<AuthController>().setLoginFromSharedPref();
-                Get.dialog(const ProfileDialog());
-              },
-              icon: const Icon(Icons.person_outline))
+            onPressed: () {
+              Get.find<AuthController>().setLoginFromSharedPref();
+              Get.dialog(const ProfileDialog());
+            },
+            icon: const Icon(Icons.person_outline),
+          ),
         ],
       ),
       body: ScrollConfiguration(

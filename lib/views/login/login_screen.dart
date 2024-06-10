@@ -6,10 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../../controllers/settings_controller.dart';
+import '../../data/model/finger_account.dart';
 import '../../data/model/response/model/response_model.dart';
 import '../shared/custom_button.dart';
 import '../shared/custom_sneakbar.dart';
 import '../shared/custom_text_field.dart';
+import '../shared/modals.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,6 +23,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInState extends State<SignInScreen> {
   // bool dataLoaded = Get.find<ConfigController>().configDataLoaded;
+  final settings = Get.find<SettingsController>();
 
   late TextEditingController teacherIdController;
   late TextEditingController pinController;
@@ -162,8 +166,72 @@ class _SignInState extends State<SignInScreen> {
               const SizedBox(
                 height: 20,
               ),
+              GetBuilder<SettingsController>(
+                builder: (settings) {
+                  print(settings.supportState);
+                  return settings.supportState == SupportState.supported
+                      ? GetBuilder<AuthController>(
+                          builder: (auth) {
+                            return GestureDetector(
+                              onTap: () async {
+                                FingerAccount? fingers =
+                                    await settings.userExistForFinger();
+                                if (fingers != null) {
+                                  if (settings.isBiometricActive) {
+                                    bool authenticated = await settings
+                                        .authenticateWithBiometrics();
+                                    if (authenticated) {
+                                      var result = await auth.login(
+                                          fingers.userId!, fingers.password!);
+                                      if (result.isSuccess) {
+                                        Get.offAll(() => const HomeScreen());
+                                      } else {
+                                        await CustomModals.showAlertModal(
+                                            'অনুগ্রহ করে উপরের লগইন ফর্মটি পূরণ করুন এবং লগইন করুন। অতঃপর সেটিংস থেকে ফিঙ্গারপ্রিন্ট অপসনটি অন করুন।',
+                                            'ধন্যবাদ');
+                                      }
+                                    }
+                                  } else {
+                                    await CustomModals.showAlertModal(
+                                        'অনুগ্রহ করে সেটিংস থেকে ফিঙ্গারপ্রিন্ট অপসনটি অন করুন।',
+                                        'ধন্যবাদ');
+                                  }
+                                } else {
+                                  await CustomModals.showAlertModal(
+                                      'অনুগ্রহ করে উপরের লগইন ফর্মটি পূরণ করুন এবং লগইন করুন। অতঃপর সেটিংস থেকে ফিঙ্গারপ্রিন্ট অপসনটি অন করুন।',
+                                      'ধন্যবাদ');
+                                }
+                              },
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Theme.of(context)
+                                          .primaryColor
+                                          .withOpacity(0.5),
+                                      width: 2),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Center(
+                                  child: Image.asset(
+                                    'assets/fingerprint.png',
+                                    height: 100,
+                                    width: 100,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : const SizedBox(
+                          height: 100,
+                          width: 100,
+                        );
+                },
+              ),
               SizedBox(
-                height: (Global.isIPad) ? 160 : 130,
+                height: (Global.isIPad) ? 60 : 30,
               ),
               const Text.rich(TextSpan(text: 'Developed by ', children: [
                 TextSpan(

@@ -156,9 +156,9 @@ class AuthController extends GetxController implements GetxService {
       if (response.body['status'] == true) {
         _loginModel = LoginModel.fromJson(response.body);
         authRepo.saveLogin(jsonEncode(response.body));
-        if (_rememberMe) {
-          authRepo.saveUserCred(userId: userId, password: password);
-        }
+        // if (_rememberMe) {
+        authRepo.saveUserCred(userId: userId, password: password);
+        // }
         authRepo.saveUserToken(response.body['data']['token']);
         responseModel =
             ResponseModel(true, '${response.body['data']['token']}');

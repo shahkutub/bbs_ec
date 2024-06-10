@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CommonMethods {
-
   static SnackBar snacbarMsg(String msg) {
     return SnackBar(
       content: Row(
         children: [
-          Icon(Icons.location_on_rounded,color: Colors.white,size: 40,),
+          Icon(
+            Icons.location_on_rounded,
+            color: Colors.white,
+            size: 40,
+          ),
           Text(
             msg,
             style: TextStyle(fontSize: 20),
@@ -20,6 +23,7 @@ class CommonMethods {
       padding: EdgeInsets.all(15),
     );
   }
+
   static String englishToBanglaNumberConverter(String number) {
     List<String> numBn = [
       ' ',
